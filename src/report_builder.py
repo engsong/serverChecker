@@ -106,13 +106,14 @@ def _render_terminal_html(service: dict[str, Any]) -> str:
       height: max-content;
       display: inline-block;
       overflow: hidden;
-      color: #e6e6e6;
+      color: #d2d2d2;
       font-family: Consolas, "Lucida Console", "Courier New", monospace;
       font-size: 13px;
       line-height: 1.25;
-      font-weight: 400;
-      -webkit-font-smoothing: none;
-      text-rendering: geometricPrecision;
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }}
 
     .terminal {{
@@ -128,7 +129,7 @@ def _render_terminal_html(service: dict[str, Any]) -> str:
       white-space: pre;
       margin: 0;
       padding: 0;
-      color: #e6e6e6;
+      color: #d2d2d2;
     }}
 
     .prompt-user,
@@ -136,16 +137,16 @@ def _render_terminal_html(service: dict[str, Any]) -> str:
     .prompt-at,
     .prompt-bracket,
     .prompt-dollar {{
-      color: #e6e6e6;
+      color: #d2d2d2;
     }}
 
     .prompt-dir,
     .prompt-cmd {{
-      color: #e6e6e6;
+      color: #d2d2d2;
     }}
 
     .output {{
-      color: #e6e6e6;
+      color: #d2d2d2;
     }}
 
     .error {{
@@ -190,8 +191,11 @@ def _render_web_result_html(web_result: dict[str, Any], screenshot_src: str) -> 
       margin: 0;
       padding: 24px;
       background: #0b1020;
-      color: #e5ecff;
+      color: #d9e0ea;
       font-family: Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }}
     .card {{
       max-width: 1400px;
@@ -242,6 +246,7 @@ def _render_web_result_html(web_result: dict[str, Any], screenshot_src: str) -> 
       color: #9fb0d9;
       font-size: 14px;
       white-space: pre-wrap;
+      line-height: 1.55;
     }}
   </style>
 </head>
@@ -322,8 +327,11 @@ def _render_web_summary_html(web_results: list[dict[str, Any]], report_path: Pat
       margin: 0;
       padding: 24px;
       background: #08101d;
-      color: #e7eeff;
+      color: #d9e0ea;
       font-family: Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }}
     .wrap {{
       max-width: 1600px;
@@ -389,6 +397,7 @@ def _render_web_summary_html(web_results: list[dict[str, Any]], report_path: Pat
       font-size: 13px;
       color: #aec0e8;
       white-space: pre-wrap;
+      line-height: 1.55;
     }}
     .link {{
       color: #8ab4ff;
