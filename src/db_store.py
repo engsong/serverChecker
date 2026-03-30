@@ -25,6 +25,34 @@ def _database_url() -> str:
     )
 
 
+def _env_mysql_connection_kwargs() -> dict[str, Any] | None:
+    database_name = os.getenv("MYSQL_DATABASE", "").strip()
+    if not database_name:
+        return None
+
+    user = os.getenv("MYSQL_USER", "").strip()
+    if not user:
+        raise RuntimeError("MYSQL_USER is missing.")
+
+    host = os.getenv("MYSQL_HOST", "127.0.0.1").strip() or "127.0.0.1"
+    raw_port = os.getenv("MYSQL_PORT", "3306").strip() or "3306"
+
+    try:
+        port = int(raw_port)
+    except ValueError as exc:
+        raise RuntimeError(f"MYSQL_PORT must be a valid integer, got: {raw_port}") from exc
+
+    return {
+        "host": host,
+        "port": port,
+        "user": user,
+        "password": os.getenv("MYSQL_PASSWORD", ""),
+        "database": database_name,
+        "charset": "utf8mb4",
+        "use_unicode": True,
+    }
+
+
 def _json_string(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False)
 
@@ -71,14 +99,37 @@ def _mysql_connection_kwargs(database_url: str) -> dict[str, Any]:
     }
 
 
+def _resolved_connection_kwargs() -> dict[str, Any] | None:
+    database_url = _database_url()
+    if database_url:
+        return _mysql_connection_kwargs(database_url)
+
+    return _env_mysql_connection_kwargs()
+
+
+def database_config_error() -> str:
+    try:
+        connection_kwargs = _resolved_connection_kwargs()
+    except Exception as exc:
+        return str(exc)
+
+    if connection_kwargs:
+        return ""
+
+    return (
+        "MySQL config is missing. Set SERVER_CHECKER_DATABASE_URL or MYSQL_HOST, "
+        "MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE."
+    )
+
+
 class MySQLRunStore:
-    def __init__(self, database_url: str) -> None:
+    def __init__(self, connection_kwargs: dict[str, Any]) -> None:
         if mysql is None:
             raise RuntimeError(
                 "Database persistence requires mysql-connector-python. Run `pip install -r requirements.txt` first."
             )
 
-        self.database_url = database_url
+        self.connection_kwargs = connection_kwargs
 
     def persist_run(
         self,
@@ -108,7 +159,7 @@ class MySQLRunStore:
             1 for item in run_result.get("web_checks", []) if item.get("status") != "PASS"
         )
 
-        conn = mysql.connector.connect(**_mysql_connection_kwargs(self.database_url))
+        conn = mysql.connector.connect(**self.connection_kwargs)
         try:
             cursor = conn.cursor()
             try:
@@ -585,11 +636,11 @@ def persist_run_result(
     site_reports: list[tuple[str, Path, Path]],
     web_summary_path: Path,
 ) -> bool:
-    database_url = _database_url()
-    if not database_url:
+    connection_kwargs = _resolved_connection_kwargs()
+    if not connection_kwargs:
         return False
 
-    store = MySQLRunStore(database_url=database_url)
+    store = MySQLRunStore(connection_kwargs=connection_kwargs)
     store.persist_run(
         run_result=run_result,
         site_reports=site_reports,

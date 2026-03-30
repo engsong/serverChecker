@@ -10,7 +10,7 @@ from src.report_builder import (
     write_web_summary_report,
 )
 from src.screenshot import capture_html_screenshot
-from src.db_store import persist_run_result
+from src.db_store import database_config_error, persist_run_result
 from src.utils import ensure_dir, load_yaml, now_display, now_timestamp, slugify
 from src.web_executor import execute_web_check
 
@@ -203,6 +203,9 @@ def main() -> int:
         )
     except Exception as exc:
         db_error = str(exc)
+
+    if not db_persisted and not db_error:
+        db_error = database_config_error()
 
     total_hosts = len(run_result["hosts"])
     total_services = sum(len(host["services"]) for host in run_result["hosts"])
