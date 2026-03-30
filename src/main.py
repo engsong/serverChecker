@@ -50,8 +50,6 @@ def main() -> int:
     web_reports_dir = output_dir / "web_reports"
     web_auth_dir = output_dir / "web_auth"
 
-    templates_dir = base_dir / "templates"
-
     ensure_dir(logs_dir)
     ensure_dir(reports_dir)
     ensure_dir(service_reports_dir)
@@ -179,7 +177,6 @@ def main() -> int:
 
         report_path = write_html_report(
             run_result=site_result,
-            template_path=templates_dir / "report.html.j2",
             reports_dir=site_reports_dir,
             run_id=run_id,
         )

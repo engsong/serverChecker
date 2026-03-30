@@ -1,5 +1,4 @@
 fabric
 playwright
 PyYAML
-Jinja2
 mysql-connector-python
