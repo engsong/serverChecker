@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 from src.check_executor import build_config_error_result, execute_host_service_checks
@@ -236,12 +237,15 @@ def main() -> int:
     print(f"Database Saved  : {'YES' if db_persisted else 'NO'}")
 
     if db_error:
-        print(f"Database Error  : {db_error}")
+        print(f"Database Error  : {db_error}", file=sys.stderr)
 
     for site_name, report_path, summary_png in site_reports:
         print(f"[{site_name}] Summary Report : {report_path}")
         print(f"[{site_name}] Summary PNG    : {summary_png}")
 
     print("=" * 80)
+
+    if not db_persisted:
+        return 2
 
     return 1 if has_failure else 0
