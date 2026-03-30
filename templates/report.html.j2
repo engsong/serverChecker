@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Server Check Report</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0b1020;
+        color: #d9e0ea;
+        margin: 0;
+        padding: 24px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      .container {
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #111a33, #152449);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+
+      .title {
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0 0 8px 0;
+      }
+
+      .meta {
+        color: #9fb0d1;
+        font-size: 14px;
+      }
+
+      .summary {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+
+      .card {
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 14px;
+        padding: 14px 16px;
+        min-width: 180px;
+      }
+
+      .card .label {
+        color: #95a5c8;
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+
+      .card .value {
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      .host {
+        margin-top: 20px;
+        background: rgba(15, 23, 42, 0.78);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+
+      .host-head {
+        padding: 18px 20px;
+        background: rgba(30, 41, 59, 0.7);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+      }
+
+      .host-title {
+        margin: 0;
+        font-size: 22px;
+      }
+
+      .service {
+        padding: 18px 20px;
+        border-top: 1px solid rgba(148, 163, 184, 0.12);
+      }
+
+      .service:first-child {
+        border-top: none;
+      }
+
+      .service-title {
+        margin: 0 0 6px 0;
+        font-size: 18px;
+      }
+
+      .service-meta {
+        font-size: 13px;
+        color: #9fb0d1;
+        margin-bottom: 14px;
+      }
+
+      .status-pass {
+        color: #67e8a5;
+      }
+
+      .status-fail {
+        color: #fda4af;
+      }
+
+      .status-config {
+        color: #fcd34d;
+      }
+
+      .check {
+        margin-top: 12px;
+        background: rgba(2, 6, 23, 0.8);
+        border: 1px solid rgba(148, 163, 184, 0.12);
+        border-radius: 12px;
+        padding: 14px;
+      }
+
+      .check-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .command {
+        font-family: Consolas, Monaco, monospace;
+        color: #93c5fd;
+        font-size: 13px;
+        margin-bottom: 8px;
+        word-break: break-word;
+      }
+
+      .metrics {
+        font-size: 13px;
+        color: #cbd5e1;
+        margin-bottom: 10px;
+      }
+
+      .error-box {
+        background: rgba(127, 29, 29, 0.25);
+        border: 1px solid rgba(248, 113, 113, 0.35);
+        color: #fecaca;
+        border-radius: 12px;
+        padding: 12px;
+      }
+
+      pre {
+        background: #020617;
+        color: #d3dae4;
+        border-radius: 10px;
+        padding: 12px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        font-weight: 500;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      a {
+        color: #93c5fd;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .artifacts {
+        margin-top: 10px;
+        font-size: 13px;
+        color: #cbd5e1;
+      }
+
+      .artifacts div {
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <section class="header">
+        <h1 class="title">Server Check Report</h1>
+        <div class="meta">Run ID: {{ run_id }}</div>
+        <div class="meta">Generated At: {{ generated_at }}</div>
+
+        <div class="summary">
+          <div class="card">
+            <div class="label">Total Hosts</div>
+            <div class="value">{{ totals.total_hosts }}</div>
+          </div>
+
+          <div class="card">
+            <div class="label">Total Services</div>
+            <div class="value">{{ totals.total_services }}</div>
+          </div>
+
+          <div class="card">
+            <div class="label">Total Checks</div>
+            <div class="value">{{ totals.total_checks }}</div>
+          </div>
+
+          <div class="card">
+            <div class="label">Total Passed</div>
+            <div class="value status-pass">{{ totals.total_passed }}</div>
+          </div>
+
+          <div class="card">
+            <div class="label">Total Failed</div>
+            <div class="value status-fail">{{ totals.total_failed }}</div>
+          </div>
+        </div>
+      </section>
+
+      {% for host in hosts %}
+      <section class="host">
+        <div class="host-head">
+          <h2 class="host-title">
+            {{ host.display_name }} ({{ host.host }})
+            {% if host.status == "PASS" %}
+            <span class="status-pass">[PASS]</span>
+            {% else %}
+            <span class="status-fail">[FAIL]</span>
+            {% endif %}
+          </h2>
+          <div class="meta">
+            Site: {{ host.site }} |
+            Passed: {{ host.passed }} |
+            Failed: {{ host.failed }}
+          </div>
+        </div>
+
+        {% for service in host.services %}
+        <div class="service">
+          <h3 class="service-title">
+            {{ service.service_name }}
+            {% if service.status == "PASS" %}
+            <span class="status-pass">[PASS]</span>
+            {% elif service.status == "FAIL" %}
+            <span class="status-fail">[FAIL]</span>
+            {% else %}
+            <span class="status-config">[{{ service.status }}]</span>
+            {% endif %}
+          </h3>
+
+          <div class="service-meta">
+            Profile: {{ service.profile_name }} |
+            Protocol: {{ service.protocol }} |
+            SSH Port: {{ service.ssh_port }} |
+            User: {{ service.username }} |
+            Passed: {{ service.passed }} |
+            Failed: {{ service.failed }}
+          </div>
+
+          {% if service.connection_error %}
+          <div class="error-box">{{ service.connection_error }}</div>
+          {% endif %}
+
+          <div class="artifacts">
+            <div>Log File: {{ service.log_file }}</div>
+            <div>Service HTML: {{ service.service_report_html }}</div>
+            <div>Service PNG: {{ service.service_screenshot_file }}</div>
+          </div>
+
+          {% for check in service.checks %}
+          <div class="check">
+            <div class="check-title">
+              {{ check.name }}
+              {% if check.ok %}
+              <span class="status-pass">[PASS]</span>
+              {% else %}
+              <span class="status-fail">[FAIL]</span>
+              {% endif %}
+            </div>
+
+            <div class="command">$ {{ check.command }}</div>
+            <div class="metrics">
+              Exit Code: {{ check.exit_code }} |
+              Duration: {{ "%.3f"|format(check.duration_sec) }} sec
+            </div>
+
+            {% if check.notes %}
+            <strong>Evaluation Notes</strong>
+            <pre>{% for note in check.notes %}- {{ note }}
+{% endfor %}</pre>
+            {% endif %}
+
+            {% if check.stdout %}
+            <strong>STDOUT</strong>
+            <pre>{{ check.stdout }}</pre>
+            {% endif %}
+
+            {% if check.stderr %}
+            <strong>STDERR</strong>
+            <pre>{{ check.stderr }}</pre>
+            {% endif %}
+
+            {% if check.error %}
+            <strong>ERROR</strong>
+            <pre>{{ check.error }}</pre>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </section>
+      {% endfor %}
+    </div>
+  </body>
+</html>
