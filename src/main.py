@@ -7,10 +7,13 @@ from src.check_executor import build_config_error_result, execute_host_service_c
 from src.report_builder import (
     write_html_report,
     write_service_artifacts,
+    write_web_artifacts,
+    write_web_summary_report,
 )
 from src.screenshot import capture_html_screenshot
 from src.db_store import database_config_error, persist_run_result
 from src.utils import ensure_dir, load_env_file, load_yaml, now_display, now_timestamp, slugify
+from src.web_executor import execute_web_check
 
 
 def _group_hosts_by_site(run_result: dict) -> dict[str, dict]:
@@ -42,6 +45,9 @@ def main() -> int:
     service_reports_dir = reports_dir / "services"
     screenshots_dir = output_dir / "screenshots"
     service_screenshots_dir = screenshots_dir / "services"
+    webshots_dir = output_dir / "webshots"
+    web_reports_dir = output_dir / "web_reports"
+    web_auth_dir = output_dir / "web_auth"
 
     templates_dir = base_dir / "templates"
 
@@ -50,10 +56,14 @@ def main() -> int:
     ensure_dir(service_reports_dir)
     ensure_dir(screenshots_dir)
     ensure_dir(service_screenshots_dir)
+    ensure_dir(webshots_dir)
+    ensure_dir(web_reports_dir)
+    ensure_dir(web_auth_dir)
     hosts_config = load_yaml(configs_dir / "hosts.yaml")
     checks_config = load_yaml(configs_dir / "checks.yaml")
 
     hosts = hosts_config.get("hosts", [])
+    web_targets = hosts_config.get("web_targets", [])
     profiles = checks_config.get("profiles", {})
     default_timeout_sec = int(checks_config.get("default_timeout_sec", 20))
 
@@ -62,6 +72,7 @@ def main() -> int:
         "run_id": run_id,
         "generated_at": now_display(),
         "hosts": [],
+        "web_checks": [],
     }
 
     has_failure = False
@@ -132,6 +143,30 @@ def main() -> int:
             )
             service["service_screenshot_file"] = str(service_png)
 
+    for web_item in web_targets:
+        web_result = execute_web_check(
+            web_item=web_item,
+            run_id=run_id,
+            webshots_dir=webshots_dir,
+            auth_states_dir=web_auth_dir,
+        )
+        run_result["web_checks"].append(web_result)
+
+        if web_result["status"] != "PASS":
+            has_failure = True
+
+    write_web_artifacts(
+        web_results=run_result["web_checks"],
+        web_reports_dir=web_reports_dir,
+        run_id=run_id,
+    )
+
+    web_summary_path = write_web_summary_report(
+        web_results=run_result["web_checks"],
+        reports_dir=web_reports_dir,
+        run_id=run_id,
+    )
+
     site_run_results = _group_hosts_by_site(run_result)
     site_reports: list[tuple[str, Path, Path]] = []
 
@@ -164,6 +199,7 @@ def main() -> int:
         db_persisted = persist_run_result(
             run_result=run_result,
             site_reports=site_reports,
+            web_summary_path=web_summary_path,
         )
     except Exception as exc:
         db_error = str(exc)
@@ -175,6 +211,9 @@ def main() -> int:
     total_services = sum(len(host["services"]) for host in run_result["hosts"])
     total_failed = sum(service["failed"] for host in run_result["hosts"] for service in host["services"])
     total_passed = sum(service["passed"] for host in run_result["hosts"] for service in host["services"])
+    total_web_checks = len(run_result["web_checks"])
+    total_web_passed = sum(1 for item in run_result["web_checks"] if item["status"] == "PASS")
+    total_web_failed = sum(1 for item in run_result["web_checks"] if item["status"] != "PASS")
 
     print("=" * 80)
     print("Server check completed")
@@ -184,9 +223,15 @@ def main() -> int:
     print(f"Total Services  : {total_services}")
     print(f"Total Passed    : {total_passed}")
     print(f"Total Failed    : {total_failed}")
+    print(f"Web Checks      : {total_web_checks}")
+    print(f"Web Passed      : {total_web_passed}")
+    print(f"Web Failed      : {total_web_failed}")
     print(f"Service Logs    : {logs_dir}")
     print(f"Service HTML    : {service_reports_dir}")
     print(f"Service PNG     : {service_screenshots_dir}")
+    print(f"Web Reports     : {web_reports_dir}")
+    print(f"Web Screenshots : {webshots_dir}")
+    print(f"Web Summary     : {web_summary_path}")
     print(f"Database Saved  : {'YES' if db_persisted else 'NO'}")
 
     if db_error:

@@ -71,7 +71,10 @@ def _overall_status(run_result: dict[str, Any]) -> str:
         for host in run_result.get("hosts", [])
         for service in host.get("services", [])
     )
-    return "FAIL" if has_service_failure else "PASS"
+    has_web_failure = any(
+        item.get("status") != "PASS" for item in run_result.get("web_checks", [])
+    )
+    return "FAIL" if has_service_failure or has_web_failure else "PASS"
 
 
 def _mysql_connection_kwargs(database_url: str) -> dict[str, Any]:
@@ -132,6 +135,7 @@ class MySQLRunStore:
         self,
         run_result: dict[str, Any],
         site_reports: list[tuple[str, Path, Path]],
+        web_summary_path: Path | None,
     ) -> None:
         generated_at = _parse_display_time(run_result.get("generated_at", ""))
         run_key = safe_string(run_result.get("run_id")).strip()
@@ -147,6 +151,13 @@ class MySQLRunStore:
             for host in run_result.get("hosts", [])
             for service in host.get("services", [])
         )
+        total_web_checks = len(run_result.get("web_checks", []))
+        total_web_passed = sum(
+            1 for item in run_result.get("web_checks", []) if item.get("status") == "PASS"
+        )
+        total_web_failed = sum(
+            1 for item in run_result.get("web_checks", []) if item.get("status") != "PASS"
+        )
 
         conn = mysql.connector.connect(**self.connection_kwargs)
         try:
@@ -157,10 +168,14 @@ class MySQLRunStore:
                     run_key=run_key,
                     generated_at=generated_at,
                     run_result=run_result,
+                    web_summary_path=web_summary_path,
                     total_hosts=total_hosts,
                     total_services=total_services,
                     total_passed=total_passed,
                     total_failed=total_failed,
+                    total_web_checks=total_web_checks,
+                    total_web_passed=total_web_passed,
+                    total_web_failed=total_web_failed,
                 )
 
                 self._reset_run_children(cursor=cursor, run_id=run_id)
@@ -221,6 +236,23 @@ class MySQLRunStore:
                         summary_png=summary_png,
                     )
 
+                for web_item in run_result.get("web_checks", []):
+                    site_name = safe_string(web_item.get("site") or "WEB").strip() or "WEB"
+                    site_id = site_ids.setdefault(site_name, self._upsert_site(cursor, site_name))
+                    web_target_id = self._upsert_web_target(
+                        cursor=cursor,
+                        site_id=site_id,
+                        web_item=web_item,
+                    )
+                    self._insert_web_result(
+                        cursor=cursor,
+                        run_id=run_id,
+                        site_id=site_id,
+                        web_target_id=web_target_id,
+                        generated_at=generated_at,
+                        web_item=web_item,
+                    )
+
             finally:
                 cursor.close()
 
@@ -237,10 +269,14 @@ class MySQLRunStore:
         run_key: str,
         generated_at: datetime,
         run_result: dict[str, Any],
+        web_summary_path: Path | None,
         total_hosts: int,
         total_services: int,
         total_passed: int,
         total_failed: int,
+        total_web_checks: int,
+        total_web_passed: int,
+        total_web_failed: int,
     ) -> int:
         cursor.execute(
             """
@@ -284,10 +320,10 @@ class MySQLRunStore:
                 total_services,
                 total_passed,
                 total_failed,
-                0,
-                0,
-                0,
-                "",
+                total_web_checks,
+                total_web_passed,
+                total_web_failed,
+                str(web_summary_path) if web_summary_path else "",
                 _json_string(run_result),
             ),
         )
@@ -514,9 +550,95 @@ class MySQLRunStore:
             ),
         )
 
+    def _upsert_web_target(self, cursor, site_id: int, web_item: dict[str, Any]) -> int:
+        target_name = safe_string(web_item.get("name") or "web").strip() or "web"
+        target_url = safe_string(web_item.get("url")).strip()
+        login_required = bool(web_item.get("login_required", False))
+
+        cursor.execute(
+            """
+            INSERT INTO web_targets (
+                site_id,
+                target_name,
+                target_slug,
+                target_url,
+                login_required,
+                updated_at
+            )
+            VALUES (%s, %s, %s, %s, %s, NOW())
+            ON DUPLICATE KEY UPDATE
+                target_slug = VALUES(target_slug),
+                target_url = VALUES(target_url),
+                login_required = VALUES(login_required),
+                updated_at = NOW(),
+                id = LAST_INSERT_ID(id)
+            """,
+            (
+                site_id,
+                target_name,
+                slugify(target_name),
+                target_url,
+                login_required,
+            ),
+        )
+        return int(cursor.lastrowid)
+
+    def _insert_web_result(
+        self,
+        cursor,
+        run_id: int,
+        site_id: int,
+        web_target_id: int,
+        generated_at: datetime,
+        web_item: dict[str, Any],
+    ) -> None:
+        captured_at = (
+            _parse_display_time(web_item.get("captured_at", ""))
+            if web_item.get("captured_at")
+            else generated_at
+        )
+
+        cursor.execute(
+            """
+            INSERT INTO web_check_results (
+                check_run_id,
+                site_id,
+                web_target_id,
+                target_name,
+                target_url,
+                final_url,
+                status,
+                login_required,
+                message,
+                captured_at,
+                screenshot_file,
+                web_report_html_path,
+                raw_payload
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """,
+            (
+                run_id,
+                site_id,
+                web_target_id,
+                safe_string(web_item.get("name") or "web").strip() or "web",
+                safe_string(web_item.get("url")).strip(),
+                safe_string(web_item.get("final_url")).strip(),
+                safe_string(web_item.get("status")).strip(),
+                bool(web_item.get("login_required", False)),
+                safe_string(web_item.get("message")).strip(),
+                captured_at,
+                safe_string(web_item.get("screenshot_file")).strip(),
+                safe_string(web_item.get("web_report_html")).strip(),
+                _json_string(web_item),
+            ),
+        )
+
+
 def persist_run_result(
     run_result: dict[str, Any],
     site_reports: list[tuple[str, Path, Path]],
+    web_summary_path: Path | None = None,
 ) -> bool:
     connection_kwargs = _resolved_connection_kwargs()
     if not connection_kwargs:
@@ -526,5 +648,6 @@ def persist_run_result(
     store.persist_run(
         run_result=run_result,
         site_reports=site_reports,
+        web_summary_path=web_summary_path,
     )
     return True

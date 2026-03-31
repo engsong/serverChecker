@@ -192,6 +192,445 @@ def write_service_artifacts(
             service["service_report_html"] = str(html_path)
 
 
+def _render_web_result_html(web_result: dict[str, Any]) -> str:
+    site_name = escape(str(web_result.get("site") or "WEB"))
+    target_name = escape(str(web_result.get("name") or "web"))
+    target_url = escape(str(web_result.get("url") or "-"))
+    final_url = escape(str(web_result.get("final_url") or "-"))
+    status = escape(str(web_result.get("status") or "UNKNOWN"))
+    message = escape(str(web_result.get("message") or ""))
+    captured_at = escape(str(web_result.get("captured_at") or web_result.get("generated_at") or "-"))
+    login_required = "Yes" if bool(web_result.get("login_required")) else "No"
+    status_tone = "#2ad7a7" if str(web_result.get("status")).upper() == "PASS" else "#ff6e82"
+
+    return f"""<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+  <meta charset=\"utf-8\" />
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
+  <title>{target_name}</title>
+  <style>
+    :root {{
+      color-scheme: dark;
+      font-family: Arial, sans-serif;
+    }}
+
+    * {{
+      box-sizing: border-box;
+    }}
+
+    body {{
+      margin: 0;
+      padding: 40px 24px;
+      background:
+        radial-gradient(circle at top left, rgba(175, 108, 255, 0.18), transparent 28%),
+        linear-gradient(180deg, #070c17 0%, #0c1324 100%);
+      color: #f6f8ff;
+    }}
+
+    .report {{
+      width: min(920px, 100%);
+      margin: 0 auto;
+      padding: 28px;
+      border: 1px solid rgba(156, 173, 221, 0.16);
+      border-radius: 24px;
+      background: rgba(14, 22, 40, 0.94);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+    }}
+
+    .eyebrow {{
+      color: #8b96bc;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }}
+
+    h1 {{
+      margin: 10px 0 8px;
+      font-size: 32px;
+      line-height: 1.1;
+    }}
+
+    p {{
+      margin: 0;
+      color: #c2cae7;
+      line-height: 1.6;
+    }}
+
+    .status {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      margin-top: 18px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid {status_tone};
+      color: {status_tone};
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }}
+
+    .grid {{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }}
+
+    .card {{
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(156, 173, 221, 0.14);
+      background: rgba(255, 255, 255, 0.03);
+      min-width: 0;
+    }}
+
+    .card strong {{
+      display: block;
+      margin-bottom: 8px;
+      color: #8b96bc;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }}
+
+    .value {{
+      color: #f6f8ff;
+      font-size: 16px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }}
+
+    .message {{
+      margin-top: 24px;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(156, 173, 221, 0.14);
+      background: rgba(255, 255, 255, 0.03);
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }}
+
+    @media (max-width: 720px) {{
+      body {{
+        padding: 18px;
+      }}
+
+      .report {{
+        padding: 20px;
+      }}
+
+      .grid {{
+        grid-template-columns: 1fr;
+      }}
+    }}
+  </style>
+</head>
+<body>
+  <section class=\"report\">
+    <span class=\"eyebrow\">Web Check</span>
+    <h1>{target_name}</h1>
+    <p>Captured browser result for <strong>{site_name}</strong>.</p>
+    <div class=\"status\">{status}</div>
+
+    <div class=\"grid\">
+      <div class=\"card\">
+        <strong>Site</strong>
+        <div class=\"value\">{site_name}</div>
+      </div>
+      <div class=\"card\">
+        <strong>Captured At</strong>
+        <div class=\"value\">{captured_at}</div>
+      </div>
+      <div class=\"card\">
+        <strong>Target URL</strong>
+        <div class=\"value\">{target_url}</div>
+      </div>
+      <div class=\"card\">
+        <strong>Final URL</strong>
+        <div class=\"value\">{final_url}</div>
+      </div>
+      <div class=\"card\">
+        <strong>Login Required</strong>
+        <div class=\"value\">{login_required}</div>
+      </div>
+      <div class=\"card\">
+        <strong>Screenshot File</strong>
+        <div class=\"value\">{escape(str(web_result.get("screenshot_file") or "-"))}</div>
+      </div>
+    </div>
+
+    <div class=\"message\">
+      <strong>Message</strong>
+      <p>{message or "-"}</p>
+    </div>
+  </section>
+</body>
+</html>
+"""
+
+
+def _render_web_summary_html(web_results: list[dict[str, Any]], run_id: str) -> str:
+    total_checks = len(web_results)
+    total_passed = sum(1 for item in web_results if str(item.get("status")).upper() == "PASS")
+    total_failed = total_checks - total_passed
+
+    rows = []
+    for web_result in web_results:
+        status = escape(str(web_result.get("status") or "UNKNOWN"))
+        status_class = "status-pass" if str(web_result.get("status")).upper() == "PASS" else "status-fail"
+        rows.append(
+            f"""
+            <tr>
+              <td>{escape(str(web_result.get("site") or "WEB"))}</td>
+              <td>{escape(str(web_result.get("name") or "web"))}</td>
+              <td>{escape(str(web_result.get("url") or "-"))}</td>
+              <td>{escape(str(web_result.get("final_url") or "-"))}</td>
+              <td><span class=\"status-chip {status_class}\">{status}</span></td>
+              <td>{escape(str(web_result.get("message") or "-"))}</td>
+            </tr>
+            """
+        )
+
+    table_rows = "\n".join(rows) if rows else (
+        """
+        <tr>
+          <td colspan="6" class="empty-state">No web targets were configured for this run.</td>
+        </tr>
+        """
+    )
+
+    return f"""<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+  <meta charset=\"utf-8\" />
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
+  <title>Web Check Summary</title>
+  <style>
+    :root {{
+      color-scheme: dark;
+      font-family: Arial, sans-serif;
+    }}
+
+    * {{
+      box-sizing: border-box;
+    }}
+
+    body {{
+      margin: 0;
+      padding: 32px 20px;
+      background:
+        radial-gradient(circle at top left, rgba(175, 108, 255, 0.16), transparent 24%),
+        linear-gradient(180deg, #070c17 0%, #0c1324 100%);
+      color: #f6f8ff;
+    }}
+
+    .report {{
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 28px;
+      border-radius: 26px;
+      border: 1px solid rgba(156, 173, 221, 0.16);
+      background: rgba(14, 22, 40, 0.94);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+    }}
+
+    .eyebrow {{
+      color: #8b96bc;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }}
+
+    h1 {{
+      margin: 10px 0 8px;
+      font-size: 34px;
+      line-height: 1.1;
+    }}
+
+    p {{
+      margin: 0;
+      color: #c2cae7;
+      line-height: 1.6;
+    }}
+
+    .summary-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }}
+
+    .summary-card {{
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(156, 173, 221, 0.14);
+      background: rgba(255, 255, 255, 0.03);
+    }}
+
+    .summary-card strong {{
+      display: block;
+      margin-bottom: 10px;
+      color: #8b96bc;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }}
+
+    .summary-card span {{
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }}
+
+    table {{
+      width: 100%;
+      margin-top: 24px;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(156, 173, 221, 0.14);
+    }}
+
+    th,
+    td {{
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(156, 173, 221, 0.1);
+      font-size: 14px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }}
+
+    th {{
+      color: #8b96bc;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.04);
+    }}
+
+    tr:last-child td {{
+      border-bottom: 0;
+    }}
+
+    .status-chip {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      padding: 0 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid currentColor;
+    }}
+
+    .status-pass {{
+      color: #2ad7a7;
+    }}
+
+    .status-fail {{
+      color: #ff6e82;
+    }}
+
+    .empty-state {{
+      text-align: center;
+      color: #8b96bc;
+      padding: 32px 16px;
+    }}
+
+    @media (max-width: 860px) {{
+      .summary-grid {{
+        grid-template-columns: 1fr;
+      }}
+    }}
+  </style>
+</head>
+<body>
+  <section class=\"report\">
+    <span class=\"eyebrow\">Web Monitor</span>
+    <h1>Web check summary</h1>
+    <p>Run <strong>{escape(run_id)}</strong> consolidated browser checks and screenshot captures.</p>
+
+    <div class=\"summary-grid\">
+      <div class=\"summary-card\">
+        <strong>Total checks</strong>
+        <span>{total_checks}</span>
+      </div>
+      <div class=\"summary-card\">
+        <strong>Passed</strong>
+        <span>{total_passed}</span>
+      </div>
+      <div class=\"summary-card\">
+        <strong>Failed</strong>
+        <span>{total_failed}</span>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Site</th>
+          <th>Target</th>
+          <th>Target URL</th>
+          <th>Final URL</th>
+          <th>Status</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        {table_rows}
+      </tbody>
+    </table>
+  </section>
+</body>
+</html>
+"""
+
+
+def write_web_artifacts(
+    web_results: list[dict[str, Any]],
+    web_reports_dir: Path,
+    run_id: str,
+) -> None:
+    ensure_dir(web_reports_dir)
+
+    for web_result in web_results:
+        name_slug = slugify(str(web_result.get("name") or "web"))
+        item_dir = ensure_dir(web_reports_dir / name_slug)
+        html_path = item_dir / f"{run_id}__{name_slug}.html"
+        write_text(html_path, _render_web_result_html(web_result))
+        web_result["web_report_html"] = str(html_path)
+
+
+def write_web_summary_report(
+    web_results: list[dict[str, Any]],
+    reports_dir: Path,
+    run_id: str,
+) -> Path:
+    ensure_dir(reports_dir)
+
+    report_path = reports_dir / f"{run_id}__web_check_report.html"
+    write_text(report_path, _render_web_summary_html(web_results, run_id))
+    return report_path
+
+
 def write_html_report(
     run_result: dict[str, Any],
     template_path: Path,
