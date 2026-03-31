@@ -1,0 +1,11 @@
+{
+  "status": "COMPLETED",
+  "startedAt": "2026-03-31T06:22:29.974Z",
+  "finishedAt": "2026-03-31T06:28:44.178Z",
+  "exitCode": 0,
+  "pid": null,
+  "stdoutTail": "================================================================================\r\nServer check completed\r\nRun ID          : 2026-03-31_13-22-30\r\nGenerated At    : 2026-03-31 13:22:30\r\nTotal Hosts     : 11\r\nTotal Services  : 43\r\nTotal Passed    : 144\r\nTotal Failed    : 0\r\nService Logs    : C:\\Users\\Advice\\Desktop\\serverChecker\\serverChecker\\output\\logs\r\nService HTML    : C:\\Users\\Advice\\Desktop\\serverChecker\\serverChecker\\output\\reports\\services\r\nService PNG     : C:\\Users\\Advice\\Desktop\\serverChecker\\serverChecker\\output\\screenshots\\services\r\nDatabase Saved  : YES\r\n[DC] Summary Report : C:\\Users\\Advice\\Desktop\\serverChecker\\serverChecker\\output\\reports\\DC\\2026-03-31_13-22-30__server_check_report.html\r\n[DC] Summary PNG    : C:\\Users\\Advice\\Desktop\\serverChecker\\serverChecker\\output\\screenshots\\DC\\2026-03-31_13-22-30__DC__server_check_report.png\r\n[DR] Summary Report : C:\\Users\\Advice\\Desktop\\serverChecker\\serverChecker\\output\\reports\\DR\\2026-03-31_13-22-30__server_check_report.html\r\n[DR] Summary PNG    : C:\\Users\\Advice\\Desktop\\serverChecker\\serverChecker\\output\\screenshots\\DR\\2026-03-31_13-22-30__DR__server_check_report.png\r\n================================================================================\r\n",
+  "stderrTail": "",
+  "command": "python C:\\Users\\Advice\\Desktop\\serverChecker\\serverChecker\\run.py",
+  "checkerRoot": "C:\\Users\\Advice\\Desktop\\serverChecker\\serverChecker"
+}

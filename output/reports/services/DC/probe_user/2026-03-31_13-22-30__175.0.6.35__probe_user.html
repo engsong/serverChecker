@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>probe_user</title>
+  <style>
+    html {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      width: max-content;
+      height: max-content;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      width: max-content;
+      height: max-content;
+      display: inline-block;
+      overflow: hidden;
+      color: #d2d2d2;
+      font-family: Consolas, "Lucida Console", "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .terminal {
+      display: inline-block;
+      width: max-content;
+      height: max-content;
+      box-sizing: border-box;
+      padding: 6px 8px;
+      background: #000000;
+    }
+
+    .line {
+      white-space: pre;
+      margin: 0;
+      padding: 0;
+      color: #d2d2d2;
+    }
+
+    .prompt-user,
+    .prompt-host,
+    .prompt-at,
+    .prompt-bracket,
+    .prompt-dollar {
+      color: #d2d2d2;
+    }
+
+    .prompt-dir,
+    .prompt-cmd {
+      color: #d2d2d2;
+    }
+
+    .output {
+      color: #d2d2d2;
+    }
+
+    .error {
+      color: #ff8a80;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">probe_user</span><span class="prompt-at">@</span><span class="prompt-host">PXLAAPS05</span><span class="prompt-space"> </span><span class="prompt-dir">~</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> date</span></div>
+<div class="line output">Tue Mar 31 13:25:45 +07 2026</div>
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">probe_user</span><span class="prompt-at">@</span><span class="prompt-host">PXLAAPS05</span><span class="prompt-space"> </span><span class="prompt-dir">~</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> ps -ef | grep ./probe | grep -v grep</span></div>
+<div class="line output">probe_u+ 35490     1  0  2025 ?        15:22:16 ./probe</div>
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">probe_user</span><span class="prompt-at">@</span><span class="prompt-host">PXLAAPS05</span><span class="prompt-space"> </span><span class="prompt-dir">~</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> df</span></div>
+<div class="line output">Filesystem             1K-blocks     Used Available Use% Mounted on</div>
+<div class="line output">devtmpfs                65634872        0  65634872   0% /dev</div>
+<div class="line output">tmpfs                   65651752        0  65651752   0% /dev/shm</div>
+<div class="line output">tmpfs                   65651752  4223796  61427956   7% /run</div>
+<div class="line output">tmpfs                   65651752        0  65651752   0% /sys/fs/cgroup</div>
+<div class="line output">/dev/mapper/uel-root    52395008 15463732  36931276  30% /</div>
+<div class="line output">/dev/sdb2                1041984   222464    819520  22% /boot</div>
+<div class="line output">/dev/sdb1                 204580    11516    193064   6% /boot/efi</div>
+<div class="line output">/dev/mapper/bapl-BAPL  918454260    77848 871698396   1% /BAPL</div>
+<div class="line output">/dev/mapper/home-sync   20511312   289844  19156508   2% /home/cp_sync</div>
+<div class="line output">/dev/mapper/home-APL   392074236   158840 371976068   1% /APL</div>
+<div class="line output">/dev/mapper/home-probe  20511312  1775364  17670988  10% /home/probe_user</div>
+<div class="line output">/dev/mapper/home-bisas 103080888 17036624  80785000  18% /home/cp_bisas</div>
+<div class="line output">/dev/mapper/home-mopas  51474912   142016  48695072   1% /home/cp_mopas</div>
+<div class="line output">/dev/mapper/home-APF   309504832 15513992 278245816   6% /APF</div>
+<div class="line output">/dev/mapper/home-mgmas  20511312    45104  19401248   1% /home/cp_mgmas</div>
+<div class="line output">/dev/mapper/home-nginx  30832548   142076  29101224   1% /home/cp_nginx</div>
+<div class="line output">/dev/mapper/home-fbias  51474912  3455988  45381100   8% /home/cp_fbias</div>
+<div class="line output">/dev/mapper/home-fchas  51474912  5115148  43721940  11% /home/cp_fchas</div>
+<div class="line output">tmpfs                   13130352       12  13130340   1% /run/user/42</div>
+<div class="line output">tmpfs                   13130352        0  13130352   0% /run/user/1001</div>
+<div class="line output">tmpfs                   13130352        0  13130352   0% /run/user/1007</div>
+<div class="line output">tmpfs                   13130352        0  13130352   0% /run/user/1006</div>
+<div class="line output">tmpfs                   13130352        0  13130352   0% /run/user/1008</div>
+<div class="line output">tmpfs                   13130352        0  13130352   0% /run/user/1009</div>
+<div class="line output">tmpfs                   13130352        0  13130352   0% /run/user/1002</div>
+  </div>
+</body>
+</html>

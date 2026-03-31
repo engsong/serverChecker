@@ -1,0 +1,31 @@
+[probe_user@PXLAAPS04 ~]$ date
+Tue Mar 31 10:49:26 +07 2026
+[probe_user@PXLAAPS04 ~]$ ps -ef | grep ./probe | grep -v grep
+probe_u+ 19412     1  0  2025 ?        18:36:56 ./probe
+[probe_user@PXLAAPS04 ~]$ df
+Filesystem              1K-blocks     Used  Available Use% Mounted on
+devtmpfs                 65634872        0   65634872   0% /dev
+tmpfs                    65651752        0   65651752   0% /dev/shm
+tmpfs                    65651752   332528   65319224   1% /run
+tmpfs                    65651752        0   65651752   0% /sys/fs/cgroup
+/dev/mapper/uel-root     52395008 16558800   35836208  32% /
+/dev/sdb2                 1041984   222464     819520  22% /boot
+/dev/sdb1                  204580    11516     193064   6% /boot/efi
+/dev/mapper/bapl-BAPL   918454260    77848  871698396   1% /BAPL
+/dev/mapper/bapf-BAPF  3170532264    90136 3009364472   1% /BAPF
+/dev/mapper/home-APL    392074236  1716376  370418532   1% /APL
+/dev/mapper/home-sync    20511312   323052   19123300   2% /home/cp_sync
+/dev/mapper/home-bisas  103080888 18765584   79056040  20% /home/cp_bisas
+/dev/mapper/home-mopas   51474912   396372   48440716   1% /home/cp_mopas
+/dev/mapper/home-probe   20511312  5603580   13842772  29% /home/probe_user
+/dev/mapper/home-mgmas   20511312    45128   19401224   1% /home/cp_mgmas
+/dev/mapper/home-APF    309504832 15513992  278245816   6% /APF
+/dev/mapper/home-fbias   51474912  3474360   45362728   8% /home/cp_fbias
+/dev/mapper/home-nginx   30832548   680600   28562700   3% /home/cp_nginx
+/dev/mapper/home-fchas   51474912  6379328   42457760  14% /home/cp_fchas
+tmpfs                    13130352       12   13130340   1% /run/user/42
+tmpfs                    13130352        0   13130352   0% /run/user/0
+tmpfs                    13130352        0   13130352   0% /run/user/1005
+tmpfs                    13130352        0   13130352   0% /run/user/1002
+tmpfs                    13130352        0   13130352   0% /run/user/1009
+tmpfs                    13130352        0   13130352   0% /run/user/1007

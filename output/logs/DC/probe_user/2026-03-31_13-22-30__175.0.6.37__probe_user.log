@@ -1,0 +1,30 @@
+[probe_user@PXLADBS02 ~]$ date
+Tue Mar 31 13:27:34 +07 2026
+[probe_user@PXLADBS02 ~]$ ps -ef | grep ./probe | grep -v grep
+probe_u+ 35530 18511  0  2025 ?        09:25:54 ./probe
+[probe_user@PXLADBS02 ~]$ df
+Filesystem              1K-blocks      Used Available Use% Mounted on
+devtmpfs                 65634904         0  65634904   0% /dev
+tmpfs                    65651752         0  65651752   0% /dev/shm
+tmpfs                    65651752    619208  65032544   1% /run
+tmpfs                    65651752         0  65651752   0% /sys/fs/cgroup
+/dev/mapper/uel-root     52395008  20265404  32129604  39% /
+/dev/sda2                 1041984    222464    819520  22% /boot
+/dev/sda1                  204580     11516    193064   6% /boot/efi
+/dev/mapper/home-cmyad   20511312   9669980   9776372  50% /home/cp_cmyad
+/dev/mapper/home-casad   20511312    141848  19304504   1% /home/cp_casad
+/dev/mapper/home-hasad   20511312    141852  19304500   1% /home/cp_hasad
+/dev/mapper/home-hmyad   20511312    595088  18851264   4% /home/cp_hmyad
+/dev/mapper/home-mgmas   20511312     45080  19401272   1% /home/cp_mgmas
+/dev/mapper/home-hpxad   20511312    144704  19301648   1% /home/cp_hpxad
+/dev/mapper/home-probe   20511312    171280  19275072   1% /home/probe_user
+/dev/mapper/home-cpxad   20511312    183660  19262692   1% /home/cp_cpxad
+/dev/mapper/home-cdbad 1056758196 117104996 885949728  12% /home/cp_cdbad
+/dev/mapper/home-mdbad 1056758196  35865900 967188824   4% /home/cp_mdbad
+/dev/mapper/home-hdbad 1056758196  96232988 906821736  10% /home/cp_hdbad
+tmpfs                    13130352        12  13130340   1% /run/user/42
+tmpfs                    13130352         0  13130352   0% /run/user/1014
+tmpfs                    13130352         0  13130352   0% /run/user/1024
+tmpfs                    13130352         0  13130352   0% /run/user/1015
+tmpfs                    13130352         0  13130352   0% /run/user/1016
+tmpfs                    13130352         0  13130352   0% /run/user/1018

@@ -1,0 +1,26 @@
+[probe_user@PXLAAPS03 ~]$ date
+Tue Mar 31 10:48:46 +07 2026
+[probe_user@PXLAAPS03 ~]$ ps -ef | grep ./probe | grep -v grep
+probe_u+  4238     1  0  2025 ?        07:49:01 ./probe
+[probe_user@PXLAAPS03 ~]$ df
+Filesystem             1K-blocks     Used Available Use% Mounted on
+devtmpfs                65634888        0  65634888   0% /dev
+tmpfs                   65651752        0  65651752   0% /dev/shm
+tmpfs                   65651752   619120  65032632   1% /run
+tmpfs                   65651752        0  65651752   0% /sys/fs/cgroup
+/dev/mapper/uel-root    52395008 16190420  36204588  31% /
+/dev/sda2                1041984   222492    819492  22% /boot
+/dev/sda1                 204580    11516    193064   6% /boot/efi
+/dev/mapper/home-fcpas  82438552   124952  78102912   1% /home/cp_fcpas
+/dev/mapper/home-fmpas  82438552  6696956  71530908   9% /home/cp_fmpas
+/dev/mapper/home-ftpas  82438552 11536052  66691812  15% /home/cp_ftpas
+/dev/mapper/home-APL   619140256 20106936 567559656   4% /APL
+/dev/mapper/home-fmsas  82438552  4264600  73963264   6% /home/cp_fmsas
+/dev/mapper/home-probe  20511312   731764  18714588   4% /home/probe_user
+/dev/mapper/home-nginx  30832548   141940  29101360   1% /home/cp_nginx
+/dev/mapper/home-mgmas  30832548    45128  29198172   1% /home/cp_mgmas
+tmpfs                   13130352       12  13130340   1% /run/user/42
+tmpfs                   13130352        0  13130352   0% /run/user/1008
+tmpfs                   13130352        0  13130352   0% /run/user/1016
+tmpfs                   13130352        0  13130352   0% /run/user/1015
+tmpfs                   13130352        0  13130352   0% /run/user/1007

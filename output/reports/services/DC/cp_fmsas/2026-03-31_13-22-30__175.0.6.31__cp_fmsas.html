@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>cp_fmsas</title>
+  <style>
+    html {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      width: max-content;
+      height: max-content;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      width: max-content;
+      height: max-content;
+      display: inline-block;
+      overflow: hidden;
+      color: #d2d2d2;
+      font-family: Consolas, "Lucida Console", "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .terminal {
+      display: inline-block;
+      width: max-content;
+      height: max-content;
+      box-sizing: border-box;
+      padding: 6px 8px;
+      background: #000000;
+    }
+
+    .line {
+      white-space: pre;
+      margin: 0;
+      padding: 0;
+      color: #d2d2d2;
+    }
+
+    .prompt-user,
+    .prompt-host,
+    .prompt-at,
+    .prompt-bracket,
+    .prompt-dollar {
+      color: #d2d2d2;
+    }
+
+    .prompt-dir,
+    .prompt-cmd {
+      color: #d2d2d2;
+    }
+
+    .output {
+      color: #d2d2d2;
+    }
+
+    .error {
+      color: #ff8a80;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">cp_fmsas</span><span class="prompt-at">@</span><span class="prompt-host">PXLAAPS01</span><span class="prompt-space"> </span><span class="prompt-dir">~</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> date</span></div>
+<div class="line output">Tue Mar 31 13:23:02 +07 2026</div>
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">cp_fmsas</span><span class="prompt-at">@</span><span class="prompt-host">PXLAAPS01</span><span class="prompt-space"> </span><span class="prompt-dir">~</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> cd flp_fms/scripts/</span></div>
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">cp_fmsas</span><span class="prompt-at">@</span><span class="prompt-host">PXLAAPS01</span><span class="prompt-space"> </span><span class="prompt-dir">scripts</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> sh checkump.sh</span></div>
+<div class="line output">&nbsp;</div>
+<div class="line output">Task 1: Checking core process...</div>
+<div class="line output">    Process1: mq_amq                                                      [stop]</div>
+<div class="line output">    Process2: ui_node                                                     [stop]</div>
+<div class="line output">    Process3: srv_server                                                  [stop]</div>
+<div class="line output">    Process4: srv_datatrans                                               [stop]</div>
+<div class="line output">    Process5: ep_ep                                                       [stop]</div>
+<div class="line output">    Process6: agent_echotest                                              [stop]</div>
+<div class="line output">    Process7: agent_application                                           [stop]</div>
+<div class="line output">    Process8: agent_system                                                [stop]</div>
+<div class="line output">    Process9: agent_confresp                                              [stop]</div>
+<div class="line output">    Process10: agent_hoststatus                                           [stop]</div>
+<div class="line output">    Process11: agent_snmp                                                 [stop]</div>
+<div class="line output">    Process12: gateway_email                                              [stop]</div>
+<div class="line output">    Process13: daemon_daemon                                              [stop]</div>
+<div class="line output">&nbsp;</div>
+<div class="line output">Task 2: Checking underly link ...</div>
+<div class="line output">    Underly link(36662) count(0) is under control.                           [V]</div>
+<div class="line output">    Underly link(36000) count(0) is under control.                           [V]</div>
+<div class="line output">&nbsp;</div>
+<div class="line output">---------------------------------- STATISTIC -----------------------------------</div>
+<div class="line output">&nbsp;</div>
+<div class="line output">--------------------------------------------------------------------------------</div>
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">cp_fmsas</span><span class="prompt-at">@</span><span class="prompt-host">PXLAAPS01</span><span class="prompt-space"> </span><span class="prompt-dir">scripts</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> vmstat 1 10</span></div>
+<div class="line output">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----</div>
+<div class="line output"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</div>
+<div class="line output"> 0  0      0 76446864 413420 45074224    0    0     0     0    0    0  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 76449696 413420 45074312    0    0     0    36 3611 5506  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 76450896 413420 45074416    0    0     0     0 3132 5210  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 76452088 413420 45074436    0    0     0    16 3435 5226  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 76452080 413420 45074436    0    0     0    44 3385 5323  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 76452176 413428 45074432    0    0     0    64 3504 5440  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 76452544 413428 45074444    0    0     0    80 3546 5486  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 76452920 413428 45074444    0    0     0     0 3134 5154  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 76452624 413428 45074448    0    0     0     0 3605 5392  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 76450880 413428 45074448    0    0     0    12 3947 5615  0  0 100  0  0</div>
+  </div>
+</body>
+</html>

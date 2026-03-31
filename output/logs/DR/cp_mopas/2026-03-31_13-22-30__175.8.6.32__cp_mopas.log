@@ -1,0 +1,21 @@
+[cp_mopas@DXLAAPS02 ~]$ date
+Tue Mar 31 13:26:52 +07 2026
+[cp_mopas@DXLAAPS02 ~]$ ps -ef | grep $USER | grep mop_server | grep -v grep | wc -l
+1
+[cp_mopas@DXLAAPS02 ~]$ ps -ef | grep $USER | grep mop_email | grep -v grep | wc -l
+1
+[cp_mopas@DXLAAPS02 ~]$ ps -ef | grep $USER | grep mop_transfer | grep -v grep | wc -l
+0
+[cp_mopas@DXLAAPS02 ~]$ vmstat 1 10
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 1  0      0 97562288 699860 25758996    0    0     0     0    0    0  0  0 100  0  0
+ 1  0      0 97562624 699860 25759004    0    0     0     0 3267 3349  0  0 100  0  0
+ 1  0      0 97565360 699860 25759004    0    0     0     0 3277 3529  0  0 100  0  0
+ 2  0      0 97568064 699860 25758976    0    0     0     0 3722 3712  0  0 100  0  0
+ 1  0      0 97567888 699860 25758976    0    0     0     0 3445 3732  0  0 100  0  0
+ 2  0      0 97567904 699860 25759064    0    0     0    12 3300 3555  0  0 100  0  0
+ 2  0      0 97567008 699860 25759008    0    0     0     0 3369 3574  0  0 100  0  0
+ 1  0      0 97567824 699860 25759008    0    0     0     0 3897 4245  0  0 100  0  0
+ 1  0      0 97566720 699860 25759020    0    0     0     0 3901 3858  0  0 100  0  0
+ 3  0      0 97565184 699860 25759020    0    0     0     0 3828 3985  0  0 100  0  0

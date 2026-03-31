@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>cp_nginx</title>
+  <style>
+    html {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      width: max-content;
+      height: max-content;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      width: max-content;
+      height: max-content;
+      display: inline-block;
+      overflow: hidden;
+      color: #d2d2d2;
+      font-family: Consolas, "Lucida Console", "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .terminal {
+      display: inline-block;
+      width: max-content;
+      height: max-content;
+      box-sizing: border-box;
+      padding: 6px 8px;
+      background: #000000;
+    }
+
+    .line {
+      white-space: pre;
+      margin: 0;
+      padding: 0;
+      color: #d2d2d2;
+    }
+
+    .prompt-user,
+    .prompt-host,
+    .prompt-at,
+    .prompt-bracket,
+    .prompt-dollar {
+      color: #d2d2d2;
+    }
+
+    .prompt-dir,
+    .prompt-cmd {
+      color: #d2d2d2;
+    }
+
+    .output {
+      color: #d2d2d2;
+    }
+
+    .error {
+      color: #ff8a80;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">cp_nginx</span><span class="prompt-at">@</span><span class="prompt-host">DXLAAPS01</span><span class="prompt-space"> </span><span class="prompt-dir">~</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> date</span></div>
+<div class="line output">Tue Mar 31 10:50:49 +07 2026</div>
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">cp_nginx</span><span class="prompt-at">@</span><span class="prompt-host">DXLAAPS01</span><span class="prompt-space"> </span><span class="prompt-dir">~</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> ps -ef | grep $USER | grep master | grep -v grep | wc -l</span></div>
+<div class="line output">1</div>
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">cp_nginx</span><span class="prompt-at">@</span><span class="prompt-host">DXLAAPS01</span><span class="prompt-space"> </span><span class="prompt-dir">~</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> ps -ef | grep $USER | grep work | grep -v grep | wc -l</span></div>
+<div class="line output">9</div>
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">cp_nginx</span><span class="prompt-at">@</span><span class="prompt-host">DXLAAPS01</span><span class="prompt-space"> </span><span class="prompt-dir">~</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> vmstat 1 10</span></div>
+<div class="line output">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----</div>
+<div class="line output"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</div>
+<div class="line output"> 0  0      0 75920464 464468 36630812    0    0     0     1    0    0  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 75919984 464468 36630836    0    0     0     8 2460 4239  0  0 100  0  0</div>
+<div class="line output"> 6  0      0 75924888 464468 36630984    0    0     0   128 3168 4681  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 75930264 464468 36630980    0    0     0    16 5518 5846  0  0 99  0  0</div>
+<div class="line output"> 0  0      0 75930480 464468 36630980    0    0     0    16 2200 4084  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 75933760 464476 36630976    0    0     0    60 3163 4602  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 75934128 464476 36630976    0    0     0    16 2393 4224  0  0 100  0  0</div>
+<div class="line output"> 4  0      0 75927704 464476 36630984    0    0     0   108 4119 4769  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 75931728 464476 36630996    0    0     0   124 2954 4650  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 75932152 464476 36630996    0    0     0    20 2217 4116  0  0 100  0  0</div>
+  </div>
+</body>
+</html>

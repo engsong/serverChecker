@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>cp_fbias</title>
+  <style>
+    html {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      width: max-content;
+      height: max-content;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      width: max-content;
+      height: max-content;
+      display: inline-block;
+      overflow: hidden;
+      color: #d2d2d2;
+      font-family: Consolas, "Lucida Console", "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .terminal {
+      display: inline-block;
+      width: max-content;
+      height: max-content;
+      box-sizing: border-box;
+      padding: 6px 8px;
+      background: #000000;
+    }
+
+    .line {
+      white-space: pre;
+      margin: 0;
+      padding: 0;
+      color: #d2d2d2;
+    }
+
+    .prompt-user,
+    .prompt-host,
+    .prompt-at,
+    .prompt-bracket,
+    .prompt-dollar {
+      color: #d2d2d2;
+    }
+
+    .prompt-dir,
+    .prompt-cmd {
+      color: #d2d2d2;
+    }
+
+    .output {
+      color: #d2d2d2;
+    }
+
+    .error {
+      color: #ff8a80;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">cp_fbias</span><span class="prompt-at">@</span><span class="prompt-host">PXLAAPS04</span><span class="prompt-space"> </span><span class="prompt-dir">~</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> date</span></div>
+<div class="line output">Tue Mar 31 13:24:23 +07 2026</div>
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">cp_fbias</span><span class="prompt-at">@</span><span class="prompt-host">PXLAAPS04</span><span class="prompt-space"> </span><span class="prompt-dir">~</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> cd flp_fbi/sbin/</span></div>
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">cp_fbias</span><span class="prompt-at">@</span><span class="prompt-host">PXLAAPS04</span><span class="prompt-space"> </span><span class="prompt-dir">sbin</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> sh fbi.sh status</span></div>
+<div class="line output">&nbsp;</div>
+<div class="line output">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;FBI (pid:48870) is RUNNING, ACTIVE PROFILE is DEFAULT </div>
+<div class="line"><span class="prompt-bracket">[</span><span class="prompt-user">cp_fbias</span><span class="prompt-at">@</span><span class="prompt-host">PXLAAPS04</span><span class="prompt-space"> </span><span class="prompt-dir">sbin</span><span class="prompt-bracket">]</span><span class="prompt-dollar">$</span><span class="prompt-cmd"> vmstat 1 10</span></div>
+<div class="line output">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----</div>
+<div class="line output"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</div>
+<div class="line output"> 0  0      0 65355056 952288 34054932    0    0     0     0    0    0  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 65357056 952288 34054992    0    0     0     4  813  946  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 65358228 952288 34054860    0    0     0     8 2597 3632  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 65359392 952288 34054860    0    0     0    16  836 1009  0  0 100  0  0</div>
+<div class="line output"> 1  0      0 65359144 952288 34054860    0    0     0     4  580  858  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 65358148 952288 34054860    0    0     0     0 1202 1032  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 65358148 952288 34054860    0    0     0     8  546  880  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 65360220 952288 34054852    0    0     0    20 2497 3665  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 65360344 952288 34054852    0    0     0     0  554  850  0  0 100  0  0</div>
+<div class="line output"> 0  0      0 65359636 952288 34054844    0    0     0     0  881 1052  0  0 100  0  0</div>
+  </div>
+</body>
+</html>

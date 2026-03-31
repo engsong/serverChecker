@@ -1,0 +1,2451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Server Check Report</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0b1020;
+        color: #d9e0ea;
+        margin: 0;
+        padding: 24px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      .container {
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #111a33, #152449);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+
+      .title {
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0 0 8px 0;
+      }
+
+      .meta {
+        color: #9fb0d1;
+        font-size: 14px;
+      }
+
+      .summary {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+
+      .card {
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 14px;
+        padding: 14px 16px;
+        min-width: 180px;
+      }
+
+      .card .label {
+        color: #95a5c8;
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+
+      .card .value {
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      .host {
+        margin-top: 20px;
+        background: rgba(15, 23, 42, 0.78);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+
+      .host-head {
+        padding: 18px 20px;
+        background: rgba(30, 41, 59, 0.7);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+      }
+
+      .host-title {
+        margin: 0;
+        font-size: 22px;
+      }
+
+      .service {
+        padding: 18px 20px;
+        border-top: 1px solid rgba(148, 163, 184, 0.12);
+      }
+
+      .service:first-child {
+        border-top: none;
+      }
+
+      .service-title {
+        margin: 0 0 6px 0;
+        font-size: 18px;
+      }
+
+      .service-meta {
+        font-size: 13px;
+        color: #9fb0d1;
+        margin-bottom: 14px;
+      }
+
+      .status-pass {
+        color: #67e8a5;
+      }
+
+      .status-fail {
+        color: #fda4af;
+      }
+
+      .status-config {
+        color: #fcd34d;
+      }
+
+      .check {
+        margin-top: 12px;
+        background: rgba(2, 6, 23, 0.8);
+        border: 1px solid rgba(148, 163, 184, 0.12);
+        border-radius: 12px;
+        padding: 14px;
+      }
+
+      .check-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .command {
+        font-family: Consolas, Monaco, monospace;
+        color: #93c5fd;
+        font-size: 13px;
+        margin-bottom: 8px;
+        word-break: break-word;
+      }
+
+      .metrics {
+        font-size: 13px;
+        color: #cbd5e1;
+        margin-bottom: 10px;
+      }
+
+      .error-box {
+        background: rgba(127, 29, 29, 0.25);
+        border: 1px solid rgba(248, 113, 113, 0.35);
+        color: #fecaca;
+        border-radius: 12px;
+        padding: 12px;
+      }
+
+      pre {
+        background: #020617;
+        color: #d3dae4;
+        border-radius: 10px;
+        padding: 12px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        font-weight: 500;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      a {
+        color: #93c5fd;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .artifacts {
+        margin-top: 10px;
+        font-size: 13px;
+        color: #cbd5e1;
+      }
+
+      .artifacts div {
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <section class="header">
+        <h1 class="title">Server Check Report</h1>
+        <div class="meta">Run ID: 2026-03-31_13-22-30</div>
+        <div class="meta">Generated At: 2026-03-31 13:22:30</div>
+
+        <div class="summary">
+          <div class="card">
+            <div class="label">Total Hosts</div>
+            <div class="value">4</div>
+          </div>
+
+          <div class="card">
+            <div class="label">Total Services</div>
+            <div class="value">15</div>
+          </div>
+
+          <div class="card">
+            <div class="label">Total Checks</div>
+            <div class="value">50</div>
+          </div>
+
+          <div class="card">
+            <div class="label">Total Passed</div>
+            <div class="value status-pass">50</div>
+          </div>
+
+          <div class="card">
+            <div class="label">Total Failed</div>
+            <div class="value status-fail">0</div>
+          </div>
+        </div>
+      </section>
+
+      
+      <section class="host">
+        <div class="host-head">
+          <h2 class="host-title">
+            175.8.6.31 (175.8.6.31)
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h2>
+          <div class="meta">
+            Site: DR |
+            Passed: 19 |
+            Failed: 0
+          </div>
+        </div>
+
+        
+        <div class="service">
+          <h3 class="service-title">
+            cp_ftpas
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: cp_ftpas_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: cp_ftpas |
+            Passed: 3 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\cp_ftpas\2026-03-31_13-22-30__175.8.6.31__cp_ftpas.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\cp_ftpas\2026-03-31_13-22-30__175.8.6.31__cp_ftpas.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\cp_ftpas\2026-03-31_13-22-30__175.8.6.31__cp_ftpas.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.375 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:25:46 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_ftpas_status
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ cd flp_ftp/sbin && sh ftj.sh status</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.281 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>
+>>>>>>>>>>>>>>>>>>>FTP (pid:38571) is RUNNING, ACTIVE PROFILE is ev-dr1 
+
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_ftpas_vmstat
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ cd flp_ftp/sbin && vmstat 1 10</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 9.125 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 75903840 464488 36658204    0    0     0     1    0    0  0  0 100  0  0
+ 0  0      0 75903960 464488 36658204    0    0     0    16 2399 4165  0  0 100  0  0
+ 1  0      0 75905920 464488 36658156    0    0     0     0 2069 3937  0  0 100  0  0
+ 0  0      0 75889872 464488 36658204    0    0     0    20 7171 6415  0  1 99  0  0
+ 0  0      0 75891264 464488 36658188    0    0     0   184 2486 4460  0  0 100  0  0
+ 0  0      0 75894568 464488 36658132    0    0     0    24 2864 4471  0  0 100  0  0
+ 1  0      0 75895680 464488 36658120    0    0     0    28 2228 4067  0  0 100  0  0
+ 0  0      0 75902480 464488 36658096    0    0     0     0 2969 4608  0  0 100  0  0
+ 3  0      0 75902200 464488 36658072    0    0     0    36 3582 4992  0  0 100  0  0
+ 0  0      0 75902832 464488 36658072    0    0     0   196 4612 5136  0  0 100  0  0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+        <div class="service">
+          <h3 class="service-title">
+            cp_fcpas
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: cp_fcpas_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: cp_fcpas |
+            Passed: 3 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\cp_fcpas\2026-03-31_13-22-30__175.8.6.31__cp_fcpas.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\cp_fcpas\2026-03-31_13-22-30__175.8.6.31__cp_fcpas.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\cp_fcpas\2026-03-31_13-22-30__175.8.6.31__cp_fcpas.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.360 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:25:57 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_fcpas_napserver_process
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps ux | grep napServer</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.218 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>cp_fcpas 38697  0.0  0.0 1004496 18980 ?       Sl    2025   0:19 bin/napServer -f etc/nap.toml
+cp_fcpas 38708  0.1  0.0 2472920 39388 ?       Sl    2025 1046:06 bin/napServer -f etc/nap.toml -work
+cp_fcpas 48235  0.0  0.0 113180  1580 ?        Ss   13:25   0:00 bash -lc ps ux | grep napServer
+cp_fcpas 48261  0.0  0.0 112708   964 ?        S    13:25   0:00 grep napServer
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_fcpas_vmstat
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ vmstat 1 10</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 9.110 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 2  0      0 75901360 464488 36657960    0    0     0     1    0    0  0  0 100  0  0
+ 0  0      0 75899808 464488 36657972    0    0     0    60 3782 4840  0  0 100  0  0
+ 0  0      0 75900272 464488 36657968    0    0     0     0 2131 4007  0  0 100  0  0
+ 2  0      0 75905192 464488 36657988    0    0     0    60 3190 4744  0  0 100  0  0
+ 0  0      0 75905192 464488 36657988    0    0     0   248 2281 4200  0  0 100  0  0
+ 0  0      0 75907208 464488 36658012    0    0     0     0 2316 4221  0  0 100  0  0
+ 1  0      0 75907512 464488 36658016    0    0     0    16 2397 4316  0  0 100  0  0
+ 0  0      0 75907512 464488 36658016    0    0     0     0 2373 4360  0  0 100  0  0
+ 0  0      0 75905888 464488 36658080    0    0     0   230 5120 5843  0  0 100  0  0
+ 1  0      0 75906720 464488 36658084    0    0     0   224 2214 4134  0  0 100  0  0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+        <div class="service">
+          <h3 class="service-title">
+            cp_fmpas
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: cp_fmpas_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: cp_fmpas |
+            Passed: 3 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\cp_fmpas\2026-03-31_13-22-30__175.8.6.31__cp_fmpas.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\cp_fmpas\2026-03-31_13-22-30__175.8.6.31__cp_fmpas.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\cp_fmpas\2026-03-31_13-22-30__175.8.6.31__cp_fmpas.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.359 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:26:07 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_fmpas_status
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ cd flp_fmp/sbin && sh fmp.sh status</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.282 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>
+>>>>>>>>>>>>>>>>>>>FMP (pid:87322) is RUNNING, ACTIVE PROFILE is ev-dr1 
+
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_fmpas_vmstat
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ cd flp_fmp/sbin && vmstat 1 10</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 9.109 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 75904824 464488 36657944    0    0     0     1    0    0  0  0 100  0  0
+ 0  0      0 75905888 464488 36657904    0    0     0    72 2688 4695  0  0 100  0  0
+ 1  0      0 75907504 464488 36657832    0    0     0     0 2129 3946  0  0 100  0  0
+ 0  0      0 75894048 464488 36657844    0    0     0    24 7032 6305  0  1 99  0  0
+ 0  0      0 75895440 464488 36657820    0    0     0   260 2305 4299  0  0 100  0  0
+ 1  0      0 75902576 464488 36657812    0    0     0    16 4014 5668  0  0 100  0  0
+ 0  0      0 75904880 464488 36657816    0    0     0    32 2667 4309  0  0 100  0  0
+ 0  0      0 75905008 464488 36657816    0    0     0     0 2070 3921  0  0 100  0  0
+ 2  0      0 75905600 464488 36657824    0    0     0    80 4047 5320  0  0 100  0  0
+ 0  0      0 75906800 464488 36657824    0    0     0   220 2832 4390  0  0 100  0  0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+        <div class="service">
+          <h3 class="service-title">
+            cp_fmsas
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: cp_fmsas_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: cp_fmsas |
+            Passed: 3 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\cp_fmsas\2026-03-31_13-22-30__175.8.6.31__cp_fmsas.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\cp_fmsas\2026-03-31_13-22-30__175.8.6.31__cp_fmsas.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\cp_fmsas\2026-03-31_13-22-30__175.8.6.31__cp_fmsas.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.390 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:26:17 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_fmsas_checkump
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ cd flp_fms/scripts && sh checkump.sh</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 2.297 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>
+Task 1: Checking core process...
+    Process1: mq_amq                                                   [running]
+    Process2: ui_node                                                  [running]
+    Process3: srv_server                                               [running]
+    Process4: srv_datatrans                                            [running]
+    Process5: ep_ep                                                    [running]
+    Process6: agent_echotest                                           [running]
+    Process7: agent_application                                        [running]
+    Process8: agent_system                                             [running]
+    Process9: agent_confresp                                           [running]
+    Process10: agent_hoststatus                                        [running]
+    Process11: agent_snmp                                              [running]
+    Process12: gateway_email                                           [running]
+    Process13: daemon_daemon                                           [running]
+
+Task 2: Checking underly link ...
+    Underly link(36662) count(16) is under control.                          [V]
+    Underly link(36000) count(0) is under control.                           [V]
+
+---------------------------------- STATISTIC -----------------------------------
+
+--------------------------------------------------------------------------------
+
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_fmsas_vmstat
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ cd flp_fms/scripts && vmstat 1 10</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 9.110 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 75902968 464488 36657724    0    0     0     1    0    0  0  0 100  0  0
+ 0  0      0 75902224 464488 36657724    0    0     0   104 2795 4378  0  0 100  0  0
+ 0  0      0 75904880 464488 36657724    0    0     0   184 2166 4054  0  0 100  0  0
+ 0  0      0 75905872 464488 36657724    0    0     0     0 2284 4183  0  0 100  0  0
+ 0  0      0 75906232 464488 36657760    0    0     0    28 2348 4380  0  0 100  0  0
+ 2  0      0 75906304 464488 36657760    0    0     0     0 2075 3933  0  0 100  0  0
+ 0  0      0 75905648 464488 36657760    0    0     0    88 2729 4321  0  0 100  0  0
+ 0  0      0 75905584 464488 36657760    0    0     0   156 4065 5031  0  0 100  0  0
+ 1  0      0 75908608 464488 36657752    0    0     0    20 2753 4859  0  0 100  0  0
+ 0  0      0 75908576 464488 36657756    0    0     0    16 2163 4024  0  0 100  0  0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+        <div class="service">
+          <h3 class="service-title">
+            cp_nginx
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: cp_nginx_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: cp_nginx |
+            Passed: 4 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\cp_nginx\2026-03-31_13-22-30__175.8.6.31__cp_nginx.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\cp_nginx\2026-03-31_13-22-30__175.8.6.31__cp_nginx.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\cp_nginx\2026-03-31_13-22-30__175.8.6.31__cp_nginx.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.391 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:26:29 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_nginx_master_count
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep $USER | grep master | grep -v grep | wc -l</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.218 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>1
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_nginx_work_count
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep $USER | grep work | grep -v grep | wc -l</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.188 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>9
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_nginx_vmstat
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ vmstat 1 10</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 9.109 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 75905664 464488 36657728    0    0     0     1    0    0  0  0 100  0  0
+ 1  0      0 75891152 464488 36657728    0    0     0    52 7066 6226  0  1 99  0  0
+ 0  0      0 75892592 464488 36657652    0    0     0   204 2262 4270  0  0 100  0  0
+ 0  0      0 75893848 464488 36657608    0    0     0    28 3133 4586  0  0 100  0  0
+ 2  0      0 75903608 464488 36657632    0    0     0    72 2944 4782  0  0 100  0  0
+ 1  0      0 75904176 464488 36657636    0    0     0     0 2023 3883  0  0 100  0  0
+ 0  0      0 75904944 464488 36657632    0    0     0   164 2800 4596  0  0 100  0  0
+ 0  0      0 75906960 464488 36657652    0    0     0   248 3745 4894  0  0 100  0  0
+ 0  0      0 75907344 464488 36657652    0    0     0    16 2286 4143  0  0 100  0  0
+ 1  0      0 75907200 464488 36657652    0    0     0    28 2501 4492  0  0 100  0  0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+        <div class="service">
+          <h3 class="service-title">
+            probe_user
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: probe_user_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: probe_user |
+            Passed: 3 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\probe_user\2026-03-31_13-22-30__175.8.6.31__probe_user.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\probe_user\2026-03-31_13-22-30__175.8.6.31__probe_user.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\probe_user\2026-03-31_13-22-30__175.8.6.31__probe_user.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.375 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:26:39 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              probe_process
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep ./probe | grep -v grep</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.218 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>probe_u+ 66031     1  0  2025 ?        21:10:20 ./probe
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              probe_df
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ df</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.125 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Filesystem             1K-blocks     Used Available Use% Mounted on
+devtmpfs                65692256        0  65692256   0% /dev
+tmpfs                   65708952        0  65708952   0% /dev/shm
+tmpfs                   65708952   439124  65269828   1% /run
+tmpfs                   65708952        0  65708952   0% /sys/fs/cgroup
+/dev/mapper/uel-root   104806400 16319900  88486500  16% /
+/dev/sda2                1038336   221152    817184  22% /boot
+/dev/sda1                 204580    11504    193076   6% /boot/efi
+/dev/mapper/home-fcpas  30832548   863144  28380156   3% /home/cp_fcpas
+/dev/mapper/home-fmsas  30832548  3339112  25904188  12% /home/cp_fmsas
+/dev/mapper/home-probe  30832548  1126092  28117208   4% /home/probe_user
+/dev/mapper/home-ftpas  30832548   359096  28884204   2% /home/cp_ftpas
+/dev/mapper/home-nginx  30832548   174108  29069192   1% /home/cp_nginx
+/dev/mapper/home-DATA  631122216   840804 598199084   1% /DATA
+/dev/mapper/home-fmpas  30832548   819412  28423888   3% /home/cp_fmpas
+/dev/mapper/home-APL   226935348  7558796 207825832   4% /APL
+tmpfs                   13141792       12  13141780   1% /run/user/42
+tmpfs                   13141792        0  13141792   0% /run/user/1006
+tmpfs                   13141792        0  13141792   0% /run/user/1002
+tmpfs                   13141792        0  13141792   0% /run/user/1004
+tmpfs                   13141792        0  13141792   0% /run/user/1007
+tmpfs                   13141792        0  13141792   0% /run/user/1001
+tmpfs                   13141792        0  13141792   0% /run/user/1003
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+      </section>
+      
+      <section class="host">
+        <div class="host-head">
+          <h2 class="host-title">
+            175.8.6.32 (175.8.6.32)
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h2>
+          <div class="meta">
+            Site: DR |
+            Passed: 18 |
+            Failed: 0
+          </div>
+        </div>
+
+        
+        <div class="service">
+          <h3 class="service-title">
+            cp_fchas
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: cp_fchas_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: cp_fchas |
+            Passed: 3 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\cp_fchas\2026-03-31_13-22-30__175.8.6.32__cp_fchas.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\cp_fchas\2026-03-31_13-22-30__175.8.6.32__cp_fchas.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\cp_fchas\2026-03-31_13-22-30__175.8.6.32__cp_fchas.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.328 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:26:40 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_fchas_cmadmin_psr_bbs
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ cd flp_fch/etc || exit 1
+. ./setenv || exit 1
+
+PY_BIN=""
+if command -v python3 >/dev/null 2>&1; then
+  PY_BIN="python3"
+elif command -v python >/dev/null 2>&1; then
+  PY_BIN="python"
+else
+  echo "ERROR: python/python3 is not installed"
+  exit 1
+fi
+
+"$PY_BIN" <<'PY'
+import os
+import pty
+import re
+import select
+import signal
+import subprocess
+import sys
+import time
+
+master, slave = pty.openpty()
+proc = subprocess.Popen(
+    ["cmadmin"],
+    stdin=slave,
+    stdout=slave,
+    stderr=slave,
+    close_fds=True,
+)
+os.close(slave)
+
+def read_until(pattern, timeout):
+    buf = ""
+    end_at = time.time() + timeout
+    rx = re.compile(pattern, re.S)
+
+    while time.time() < end_at:
+        rlist, _, _ = select.select([master], [], [], 0.2)
+        if master in rlist:
+            try:
+                data = os.read(master, 4096)
+            except OSError:
+                return False
+
+            if not data:
+                return False
+
+            try:
+                text = data.decode("utf-8", "ignore")
+            except AttributeError:
+                text = data
+
+            sys.stdout.write(text)
+            sys.stdout.flush()
+            buf += text
+
+            if rx.search(buf):
+                return True
+
+    return False
+
+try:
+    if not read_until(r">", 10):
+        print("ERROR: cmadmin prompt timeout")
+        try:
+            proc.kill()
+        except Exception:
+            pass
+        sys.exit(1)
+
+    os.write(master, b"psr\n")
+    if not read_until(r">", 10):
+        print("ERROR: psr response timeout")
+        try:
+            proc.kill()
+        except Exception:
+            pass
+        sys.exit(1)
+
+    os.write(master, b"bbs\n")
+    if not read_until(r"currSvrNum", 10):
+        print("ERROR: bbs output timeout")
+        try:
+            proc.kill()
+        except Exception:
+            pass
+        sys.exit(1)
+
+    os.write(master, b"\x03")
+    time.sleep(0.5)
+
+    try:
+        proc.send_signal(signal.SIGINT)
+    except Exception:
+        pass
+
+    end_at = time.time() + 2
+    while time.time() < end_at:
+        rlist, _, _ = select.select([master], [], [], 0.2)
+        if master in rlist:
+            try:
+                data = os.read(master, 4096)
+            except OSError:
+                break
+            if not data:
+                break
+            try:
+                text = data.decode("utf-8", "ignore")
+            except AttributeError:
+                text = data
+            sys.stdout.write(text)
+            sys.stdout.flush()
+
+    try:
+        proc.terminate()
+        proc.wait()
+    except Exception:
+        try:
+            proc.kill()
+        except Exception:
+            pass
+
+    sys.exit(0)
+
+finally:
+    try:
+        os.close(master)
+    except Exception:
+        pass
+PY
+</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.875 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>cmadmin - Copyright 2013-2017 UnionPay.
+All Rights Reserved.
+>psr
+
+Svr Name             Svr Group  Svr Id  Status   bizStatus  CalledNum  Last Proc Time           
+---------            ---------- ------- -------  ---------- ---------- ---------------          
+mrqManSvr            MRQ        9001    1        1          652246     Tue Mar 31 13:26:40 2026 
+stlSvr               STL        1010    1        1          9801       Wed Jul 16 02:00:24 2025 
+fgnSvr               FGN        1020    1        1          1287       Wed Jul 16 02:00:56 2025 
+fldSvr               FLD        1030    1        1          0          Thu Mar 13 08:02:02 2025 
+bakSvr               BAK        1040    1        1          100        Wed Jul 16 17:00:03 2025 
+preSvr               PRE        1050    1        1          759        Wed Jul 16 03:00:00 2025 
+reqSvr               REQ        1070    1        1          551760     Tue Mar 31 13:26:36 2026 
+strmSvr              RSP        1110    1        1          0          Thu Mar 13 08:02:03 2025 
+rspSvr               RSP        1120    1        1          0          Thu Mar 13 08:02:03 2025 
+rspSvr               RSP        1121    1        1          0          Thu Mar 13 08:02:05 2025 
+rspSvr               RSP        1122    1        1          0          Thu Mar 13 08:02:05 2025 
+rspSvr               RSP        1123    1        1          0          Thu Mar 13 08:02:05 2025 
+rspSvr               RSP        1124    1        1          0          Thu Mar 13 08:02:06 2025 
+>bbs
+
+currSvrNum  currSvcNum  currQueNum  
+----------- ----------- ----------- 
+13          26          13          
+>^C</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_fchas_syncthing_process
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep '[s]yncthing'</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.218 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>cp_sync   5487     1  0  2025 ?        00:57:04 ./syncthing
+cp_sync   7497  5487  1  2025 ?        4-17:31:04 /home/cp_sync/syncthing/syncthing
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+        <div class="service">
+          <h3 class="service-title">
+            cp_fbias
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: cp_fbias_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: cp_fbias |
+            Passed: 3 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\cp_fbias\2026-03-31_13-22-30__175.8.6.32__cp_fbias.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\cp_fbias\2026-03-31_13-22-30__175.8.6.32__cp_fbias.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\cp_fbias\2026-03-31_13-22-30__175.8.6.32__cp_fbias.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.391 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:26:42 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_fbias_status
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ cd flp_fbi/sbin && sh fbi.sh status</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.328 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>
+>>>>>>>>>>>>>>>>>>>FBI (pid:54581) is RUNNING, ACTIVE PROFILE is DEFAULT 
+
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_fbias_vmstat
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ cd flp_fbi/sbin && vmstat 1 10</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 9.125 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 97566584 699860 25758472    0    0     0     0    0    0  0  0 100  0  0
+ 0  0      0 97568288 699860 25758192    0    0     0     0 3397 3652  0  0 100  0  0
+ 0  0      0 97568848 699860 25758088    0    0     0     4 3237 3474  0  0 100  0  0
+ 1  0      0 97543008 699860 25758896    0    0     0     0 11846 6923  0  1 98  0  0
+ 0  0      0 97547296 699860 25758484    0    0     0    16 3658 3654  0  0 100  0  0
+ 0  0      0 97557904 699860 25758964    0    0     0    12 4634 4355  0  0 100  0  0
+ 0  0      0 97563168 699860 25758896    0    0     0    65 3941 4210  0  0 100  0  0
+ 0  0      0 97563344 699860 25758896    0    0     0     0 3030 3344  0  0 100  0  0
+ 0  0      0 97563856 699860 25758608    0    0     0     0 3264 3541  0  0 100  0  0
+ 0  0      0 97564512 699860 25758984    0    0     0     4 3821 3889  0  0 100  0  0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+        <div class="service">
+          <h3 class="service-title">
+            cp_mopas
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: cp_mopas_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: cp_mopas |
+            Passed: 5 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\cp_mopas\2026-03-31_13-22-30__175.8.6.32__cp_mopas.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\cp_mopas\2026-03-31_13-22-30__175.8.6.32__cp_mopas.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\cp_mopas\2026-03-31_13-22-30__175.8.6.32__cp_mopas.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.375 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:26:52 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_mopas_mop_server_count
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep $USER | grep mop_server | grep -v grep | wc -l</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.218 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>1
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_mopas_mop_email_count
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep $USER | grep mop_email | grep -v grep | wc -l</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.172 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>1
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_mopas_mop_transfer_count
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep $USER | grep mop_transfer | grep -v grep | wc -l</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.172 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_mopas_vmstat
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ vmstat 1 10</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 9.110 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 1  0      0 97562288 699860 25758996    0    0     0     0    0    0  0  0 100  0  0
+ 1  0      0 97562624 699860 25759004    0    0     0     0 3267 3349  0  0 100  0  0
+ 1  0      0 97565360 699860 25759004    0    0     0     0 3277 3529  0  0 100  0  0
+ 2  0      0 97568064 699860 25758976    0    0     0     0 3722 3712  0  0 100  0  0
+ 1  0      0 97567888 699860 25758976    0    0     0     0 3445 3732  0  0 100  0  0
+ 2  0      0 97567904 699860 25759064    0    0     0    12 3300 3555  0  0 100  0  0
+ 2  0      0 97567008 699860 25759008    0    0     0     0 3369 3574  0  0 100  0  0
+ 1  0      0 97567824 699860 25759008    0    0     0     0 3897 4245  0  0 100  0  0
+ 1  0      0 97566720 699860 25759020    0    0     0     0 3901 3858  0  0 100  0  0
+ 3  0      0 97565184 699860 25759020    0    0     0     0 3828 3985  0  0 100  0  0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+        <div class="service">
+          <h3 class="service-title">
+            cp_nginx
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: cp_nginx_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: cp_nginx |
+            Passed: 4 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\cp_nginx\2026-03-31_13-22-30__175.8.6.32__cp_nginx.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\cp_nginx\2026-03-31_13-22-30__175.8.6.32__cp_nginx.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\cp_nginx\2026-03-31_13-22-30__175.8.6.32__cp_nginx.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.328 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:27:02 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_nginx_master_count
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep $USER | grep master | grep -v grep | wc -l</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.234 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>1
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_nginx_work_count
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep $USER | grep work | grep -v grep | wc -l</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.172 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>9
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_nginx_vmstat
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ vmstat 1 10</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 9.125 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 1  0      0 97564160 699860 25759216    0    0     0     0    0    0  0  0 100  0  0
+ 1  0      0 97563360 699860 25759276    0    0     0     0 3704 3842  0  0 100  0  0
+ 1  0      0 97564160 699860 25759028    0    0     0    24 3221 3437  0  0 100  0  0
+ 1  0      0 97544896 699860 25758728    0    0     0     0 12472 7113  1  1 98  0  0
+ 1  0      0 97547616 699860 25758752    0    0     0     0 3222 3673  0  0 100  0  0
+ 1  0      0 97559440 699860 25758144    0    0     0    12 3929 4048  0  0 100  0  0
+31  0      0 97560600 699860 25758176    0    0     0     4 3701 3604  0  0 100  0  0
+ 1  0      0 97560096 699860 25758088    0    0     0     8 3510 3604  0  0 100  0  0
+ 1  0      0 97560120 699860 25758080    0    0     0     4 3765 3607  0  0 100  0  0
+ 2  0      0 97563616 699860 25758228    0    0     0    24 3805 4175  0  0 100  0  0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+        <div class="service">
+          <h3 class="service-title">
+            probe_user
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: probe_user_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: probe_user |
+            Passed: 3 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\probe_user\2026-03-31_13-22-30__175.8.6.32__probe_user.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\probe_user\2026-03-31_13-22-30__175.8.6.32__probe_user.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\probe_user\2026-03-31_13-22-30__175.8.6.32__probe_user.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.359 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:27:12 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              probe_process
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep ./probe | grep -v grep</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.219 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>probe_u+ 44049     1  0  2025 ?        1-06:37:38 ./probe
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              probe_df
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ df</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.109 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Filesystem             1K-blocks     Used Available Use% Mounted on
+devtmpfs                65692256        0  65692256   0% /dev
+tmpfs                   65708952        0  65708952   0% /dev/shm
+tmpfs                   65708952   439360  65269592   1% /run
+tmpfs                   65708952        0  65708952   0% /sys/fs/cgroup
+/dev/mapper/uel-root   104806400 14632788  90173612  14% /
+/dev/sda2                1038336   221156    817180  22% /boot
+/dev/sda1                 204580    11504    193076   6% /boot/efi
+/dev/mapper/home-fchas  20511312  1694084  17752268   9% /home/cp_fchas
+/dev/mapper/home-fbias  20511312   565260  18881092   3% /home/cp_fbias
+/dev/mapper/home-sync   20511312   211008  19235344   2% /home/cp_sync
+/dev/mapper/home-APF   206292968 15509904 180280920   8% /APF
+/dev/mapper/home-APL    82438552   268100  77959764   1% /APL
+/dev/mapper/home-nginx  20511312   123836  19322516   1% /home/cp_nginx
+/dev/mapper/home-probe  20511312   619964  18826388   4% /home/probe_user
+/dev/mapper/home-DATA  631122216   874388 598165500   1% /DATA
+/dev/mapper/home-mopas  20511312   113212  19333140   1% /home/cp_mopas
+tmpfs                   13141792        8  13141784   1% /run/user/42
+tmpfs                   13141792        0  13141792   0% /run/user/1005
+tmpfs                   13141792        0  13141792   0% /run/user/1004
+tmpfs                   13141792        0  13141792   0% /run/user/1001
+tmpfs                   13141792        0  13141792   0% /run/user/1006
+tmpfs                   13141792        0  13141792   0% /run/user/1007
+tmpfs                   13141792       48  13141744   1% /run/user/1000
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+      </section>
+      
+      <section class="host">
+        <div class="host-head">
+          <h2 class="host-title">
+            175.8.6.33 (175.8.6.33)
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h2>
+          <div class="meta">
+            Site: DR |
+            Passed: 10 |
+            Failed: 0
+          </div>
+        </div>
+
+        
+        <div class="service">
+          <h3 class="service-title">
+            cp_fcpas
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: cp_fcpas_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: cp_fcpas |
+            Passed: 3 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\cp_fcpas\2026-03-31_13-22-30__175.8.6.33__cp_fcpas.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\cp_fcpas\2026-03-31_13-22-30__175.8.6.33__cp_fcpas.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\cp_fcpas\2026-03-31_13-22-30__175.8.6.33__cp_fcpas.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.391 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:27:14 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_fcpas_napserver_process
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps ux | grep napServer</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.203 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>cp_fcpas 44556  0.0  0.0 113180  1580 ?        Ss   13:27   0:00 bash -lc ps ux | grep napServer
+cp_fcpas 44598  0.0  0.0 112708   964 ?        S    13:27   0:00 grep napServer
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_fcpas_vmstat
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ vmstat 1 10</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 9.109 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 123690304 150572 3194264    0    0     0     0    0    0  0  0 100  0  0
+ 0  0      0 123692248 150572 3194256    0    0     0     0  220  205  0  0 100  0  0
+ 0  0      0 123692640 150572 3194264    0    0     0   270  164  207  0  0 100  0  0
+ 0  0      0 123692640 150572 3194264    0    0     0     0  229  357  0  0 100  0  0
+ 0  0      0 123693336 150572 3193948    0    0     0     0  741  438  0  0 100  0  0
+ 0  0      0 123693336 150572 3193948    0    0     0     0  130  161  0  0 100  0  0
+ 1  0      0 123693568 150572 3193940    0    0     0     0  162  182  0  0 100  0  0
+ 0  0      0 123693408 150572 3194016    0    0     0     0  743  693  0  0 100  0  0
+ 0  0      0 123693408 150572 3194016    0    0     0     0  147  170  0  0 100  0  0
+ 2  0      0 123693192 150572 3194020    0    0     0     0  732  433  0  0 100  0  0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+        <div class="service">
+          <h3 class="service-title">
+            cp_bisas
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: cp_bisas_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: cp_bisas |
+            Passed: 4 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\cp_bisas\2026-03-31_13-22-30__175.8.6.33__cp_bisas.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\cp_bisas\2026-03-31_13-22-30__175.8.6.33__cp_bisas.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\cp_bisas\2026-03-31_13-22-30__175.8.6.33__cp_bisas.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.375 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:27:24 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_bisas_risk_ai_count
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep $USER | grep risk_ai | grep -v grep | wc -l</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.203 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_bisas_scs_ai_count
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep $USER | grep scs_ai | grep -v grep | wc -l</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.156 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              cp_bisas_vmstat
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ vmstat 1 10</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 9.125 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 123689744 150572 3194108    0    0     0     0    0    0  0  0 100  0  0
+ 0  0      0 123690760 150572 3194108    0    0     0     0  634  784  0  0 100  0  0
+ 0  0      0 123690760 150572 3194108    0    0     0     0  147  167  0  0 100  0  0
+ 2  0      0 123685224 150572 3194104    0    0     0     0 2792 1430  0  0 100  0  0
+ 2  0      0 123683488 150572 3194248    0    0     0     0  555  421  0  0 100  0  0
+ 0  0      0 123688200 150572 3194296    0    0     0     0 1124  720  0  0 100  0  0
+ 0  0      0 123689680 150572 3194232    0    0     0     0  582  410  0  0 100  0  0
+ 1  0      0 123689680 150572 3194232    0    0     0     0  162  184  0  0 100  0  0
+ 0  0      0 123689680 150572 3194232    0    0     0     0  168  188  0  0 100  0  0
+ 0  0      0 123691800 150572 3194136    0    0     0     0  812  659  0  0 100  0  0
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+        <div class="service">
+          <h3 class="service-title">
+            probe_user
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: probe_user_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: probe_user |
+            Passed: 3 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\probe_user\2026-03-31_13-22-30__175.8.6.33__probe_user.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\probe_user\2026-03-31_13-22-30__175.8.6.33__probe_user.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\probe_user\2026-03-31_13-22-30__175.8.6.33__probe_user.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.359 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:27:34 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              probe_process
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep ./probe | grep -v grep</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.203 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>probe_u+ 38856 38850  0  2025 ?        16:01:27 ./probe
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              probe_df
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ df</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.125 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Filesystem             1K-blocks     Used Available Use% Mounted on
+devtmpfs                65692256        0  65692256   0% /dev
+tmpfs                   65708952        0  65708952   0% /dev/shm
+tmpfs                   65708952   438720  65270232   1% /run
+tmpfs                   65708952        0  65708952   0% /sys/fs/cgroup
+/dev/mapper/uel-root   104806400 14476236  90330164  14% /
+/dev/sda2                1038336   221148    817188  22% /boot
+/dev/sda1                 204580    11504    193076   6% /boot/efi
+/dev/mapper/home-probe  30832548   154392  29088908   1% /home/probe_user
+/dev/mapper/home-bisas 103080888    61512  97760112   1% /home/cp_bisas
+/dev/mapper/home-DATA  631122216   840804 598199084   1% /DATA
+/dev/mapper/home-fcpas  30832548   128568  29114732   1% /home/cp_fcpas
+/dev/mapper/home-APL   247577788  1545672 233432820   1% /APL
+tmpfs                   13141792       12  13141780   1% /run/user/42
+tmpfs                   13141792        0  13141792   0% /run/user/1004
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+      </section>
+      
+      <section class="host">
+        <div class="host-head">
+          <h2 class="host-title">
+            175.8.6.34 (175.8.6.34)
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h2>
+          <div class="meta">
+            Site: DR |
+            Passed: 3 |
+            Failed: 0
+          </div>
+        </div>
+
+        
+        <div class="service">
+          <h3 class="service-title">
+            probe_user
+            
+            <span class="status-pass">[PASS]</span>
+            
+          </h3>
+
+          <div class="service-meta">
+            Profile: probe_user_profile |
+            Protocol: ssh |
+            SSH Port: 22 |
+            User: probe_user |
+            Passed: 3 |
+            Failed: 0
+          </div>
+
+          
+
+          <div class="artifacts">
+            <div>Log File: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\logs\DR\probe_user\2026-03-31_13-22-30__175.8.6.34__probe_user.log</div>
+            <div>Service HTML: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\reports\services\DR\probe_user\2026-03-31_13-22-30__175.8.6.34__probe_user.html</div>
+            <div>Service PNG: C:\Users\Advice\Desktop\serverChecker\serverChecker\output\screenshots\services\DR\probe_user\2026-03-31_13-22-30__175.8.6.34__probe_user.png</div>
+          </div>
+
+          
+          <div class="check">
+            <div class="check-title">
+              show_date
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ date</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.375 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Tue Mar 31 13:27:45 +07 2026
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              probe_process
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ ps -ef | grep ./probe | grep -v grep</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.203 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>probe_u+ 46105     1  0  2025 ?        1-02:19:14 ./probe
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+          <div class="check">
+            <div class="check-title">
+              probe_df
+              
+              <span class="status-pass">[PASS]</span>
+              
+            </div>
+
+            <div class="command">$ df</div>
+            <div class="metrics">
+              Exit Code: 0 |
+              Duration: 0.110 sec
+            </div>
+
+            
+
+            
+            <strong>STDOUT</strong>
+            <pre>Filesystem             1K-blocks      Used Available Use% Mounted on
+devtmpfs                65692256         0  65692256   0% /dev
+tmpfs                   65708952         0  65708952   0% /dev/shm
+tmpfs                   65708952    332564  65376388   1% /run
+tmpfs                   65708952         0  65708952   0% /sys/fs/cgroup
+/dev/mapper/uel-root   104806400  21487132  83319268  21% /
+/dev/sda2                1038336    221248    817088  22% /boot
+/dev/sda1                 204580     11504    193076   6% /boot/efi
+/dev/mapper/home-cmyad  20511312    630016  18816336   4% /home/cp_cmyad
+/dev/mapper/home-probe  20511312    623136  18823216   4% /home/probe_user
+/dev/mapper/home-hmyad  20511312    585652  18860700   4% /home/cp_hmyad
+/dev/mapper/home-mmyad  20511312    627104  18819248   4% /home/cp_mmyad
+/dev/mapper/home-cdbad 206292968  31184928 164605896  16% /home/cp_cdbad
+/dev/mapper/home-mdbad 206292968  32986576 162804248  17% /home/cp_mdbad
+/dev/mapper/home-hdbad 515928320 139239728 350457808  29% /home/cp_hdbad
+/dev/mapper/home-DATA  724721504     73752 687810788   1% /DATA
+tmpfs                   13141792        12  13141780   1% /run/user/42
+tmpfs                   13141792         0  13141792   0% /run/user/1003
+tmpfs                   13141792         0  13141792   0% /run/user/0
+tmpfs                   13141792         0  13141792   0% /run/user/1008
+tmpfs                   13141792         0  13141792   0% /run/user/1004
+tmpfs                   13141792         0  13141792   0% /run/user/1005
+tmpfs                   13141792         0  13141792   0% /run/user/1006
+</pre>
+            
+
+            
+
+            
+          </div>
+          
+        </div>
+        
+      </section>
+      
+    </div>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+[probe_user@PXLAAPS05 ~]$ date
+Tue Mar 31 13:25:45 +07 2026
+[probe_user@PXLAAPS05 ~]$ ps -ef | grep ./probe | grep -v grep
+probe_u+ 35490     1  0  2025 ?        15:22:16 ./probe
+[probe_user@PXLAAPS05 ~]$ df
+Filesystem             1K-blocks     Used Available Use% Mounted on
+devtmpfs                65634872        0  65634872   0% /dev
+tmpfs                   65651752        0  65651752   0% /dev/shm
+tmpfs                   65651752  4223796  61427956   7% /run
+tmpfs                   65651752        0  65651752   0% /sys/fs/cgroup
+/dev/mapper/uel-root    52395008 15463732  36931276  30% /
+/dev/sdb2                1041984   222464    819520  22% /boot
+/dev/sdb1                 204580    11516    193064   6% /boot/efi
+/dev/mapper/bapl-BAPL  918454260    77848 871698396   1% /BAPL
+/dev/mapper/home-sync   20511312   289844  19156508   2% /home/cp_sync
+/dev/mapper/home-APL   392074236   158840 371976068   1% /APL
+/dev/mapper/home-probe  20511312  1775364  17670988  10% /home/probe_user
+/dev/mapper/home-bisas 103080888 17036624  80785000  18% /home/cp_bisas
+/dev/mapper/home-mopas  51474912   142016  48695072   1% /home/cp_mopas
+/dev/mapper/home-APF   309504832 15513992 278245816   6% /APF
+/dev/mapper/home-mgmas  20511312    45104  19401248   1% /home/cp_mgmas
+/dev/mapper/home-nginx  30832548   142076  29101224   1% /home/cp_nginx
+/dev/mapper/home-fbias  51474912  3455988  45381100   8% /home/cp_fbias
+/dev/mapper/home-fchas  51474912  5115148  43721940  11% /home/cp_fchas
+tmpfs                   13130352       12  13130340   1% /run/user/42
+tmpfs                   13130352        0  13130352   0% /run/user/1001
+tmpfs                   13130352        0  13130352   0% /run/user/1007
+tmpfs                   13130352        0  13130352   0% /run/user/1006
+tmpfs                   13130352        0  13130352   0% /run/user/1008
+tmpfs                   13130352        0  13130352   0% /run/user/1009
+tmpfs                   13130352        0  13130352   0% /run/user/1002
