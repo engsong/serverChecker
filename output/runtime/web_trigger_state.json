@@ -1,0 +1,11 @@
+{
+  "status": "FAILED",
+  "startedAt": "2026-03-31T03:53:16.641Z",
+  "finishedAt": "2026-03-31T03:53:16.808Z",
+  "exitCode": 1,
+  "pid": null,
+  "stdoutTail": "",
+  "stderrTail": "Traceback (most recent call last):\n  File \"/Users/macbookpro/Documents/SERVER_CHEKER/server-checker-backend/run.py\", line 1, in <module>\n    from src.main import main\n  File \"/Users/macbookpro/Documents/SERVER_CHEKER/server-checker-backend/src/main.py\", line 6, in <module>\n    from src.check_executor import build_config_error_result, execute_host_service_checks\n  File \"/Users/macbookpro/Documents/SERVER_CHEKER/server-checker-backend/src/check_executor.py\", line 5, in <module>\n    from src.ssh_runner import SSHRunner\n  File \"/Users/macbookpro/Documents/SERVER_CHEKER/server-checker-backend/src/ssh_runner.py\", line 7, in <module>\n    from fabric import Connection\nModuleNotFoundError: No module named 'fabric'\n",
+  "command": "bash /Users/macbookpro/Documents/SERVER_CHEKER/server-checker-backend/scripts/run_once.sh",
+  "checkerRoot": "/Users/macbookpro/Documents/SERVER_CHEKER/server-checker-backend"
+}
