@@ -55,348 +55,448 @@ hosts:
           password: "probe_user"
         check_profile: "probe_user_profile"
 
-  # - host: "175.0.6.32"
-  #   display_name: "175.0.6.32"
-  #   prompt_host: "PXLAAPS02"
-  #   site: "DC"
-  #   services:
-  #     - name: "cp_ftpas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_ftpas"
-  #         password: "cp_ftpas"
-  #       check_profile: "cp_ftpas_profile"
+  - host: "175.0.6.32"
+    display_name: "175.0.6.32"
+    prompt_host: "PXLAAPS02"
+    site: "DC"
+    services:
+      - name: "cp_ftpas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_ftpas"
+          password: "cp_ftpas"
+        check_profile: "cp_ftpas_profile"
 
-  #     - name: "cp_fcpas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fcpas"
-  #         password: "cp_fcpas"
-  #       check_profile: "cp_fcpas_profile"
+      - name: "cp_fcpas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fcpas"
+          password: "cp_fcpas"
+        check_profile: "cp_fcpas_profile"
 
-  #     - name: "probe_user"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "probe_user"
-  #         password: "probe_user"
-  #       check_profile: "probe_user_profile"
+      - name: "probe_user"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "probe_user"
+          password: "probe_user"
+        check_profile: "probe_user_profile"
 
-  # - host: "175.0.6.33"
-  #   display_name: "175.0.6.33"
-  #   prompt_host: "PXLAAPS03"
-  #   site: "DC"
-  #   services:
-  #     - name: "cp_fcpas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fcpas"
-  #         password: "cp_fcpas"
-  #       check_profile: "cp_fcpas_profile"
+  - host: "175.0.6.33"
+    display_name: "175.0.6.33"
+    prompt_host: "PXLAAPS03"
+    site: "DC"
+    services:
+      - name: "cp_fcpas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fcpas"
+          password: "cp_fcpas"
+        check_profile: "cp_fcpas_profile"
 
-  #     - name: "cp_fmpas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fmpas"
-  #         password: "cp_fmpas"
-  #       check_profile: "cp_fmpas_profile"
+      - name: "cp_fmpas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fmpas"
+          password: "cp_fmpas"
+        check_profile: "cp_fmpas_profile"
 
-  #     - name: "cp_fmsas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fmsas"
-  #         password: "cp_fmsas"
-  #       check_profile: "cp_fmsas_profile"
+      - name: "cp_fmsas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fmsas"
+          password: "cp_fmsas"
+        check_profile: "cp_fmsas_profile"
 
-  #     - name: "cp_nginx"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_nginx"
-  #         password: "cp_nginx"
-  #       check_profile: "cp_nginx_profile"
+      - name: "cp_nginx"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_nginx"
+          password: "cp_nginx"
+        check_profile: "cp_nginx_profile"
 
-  #     - name: "probe_user"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "probe_user"
-  #         password: "probe_user"
-  #       check_profile: "probe_user_profile"
+      - name: "probe_user"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "probe_user"
+          password: "probe_user"
+        check_profile: "probe_user_profile"
 
-  # - host: "175.0.6.34"
-  #   display_name: "175.0.6.34"
-  #   prompt_host: "PXLAAPS04"
-  #   site: "DC"
-  #   services:
-  #     - name: "cp_fchas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fchas"
-  #         password: "cp_fchas"
-  #       check_profile: "cp_fchas_profile"
+  - host: "175.0.6.34"
+    display_name: "175.0.6.34"
+    prompt_host: "PXLAAPS04"
+    site: "DC"
+    services:
+      - name: "cp_fchas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fchas"
+          password: "cp_fchas"
+        check_profile: "cp_fchas_profile"
 
-  #     - name: "cp_fbias"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fbias"
-  #         password: "cp_fbias"
-  #       check_profile: "cp_fbias_profile"
+      - name: "cp_fbias"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fbias"
+          password: "cp_fbias"
+        check_profile: "cp_fbias_profile"
 
-  #     - name: "cp_bisas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_bisas"
-  #         password: "cp_bisas"
-  #       check_profile: "cp_bisas_profile"
+      - name: "cp_bisas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_bisas"
+          password: "cp_bisas"
+        check_profile: "cp_bisas_profile"
 
-  #     - name: "cp_mopas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_mopas"
-  #         password: "cp_mopas"
-  #       check_profile: "cp_mopas_profile"
+      - name: "cp_mopas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_mopas"
+          password: "cp_mopas"
+        check_profile: "cp_mopas_profile"
 
-  #     - name: "cp_nginx"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_nginx"
-  #         password: "cp_nginx"
-  #       check_profile: "cp_nginx_profile"
+      - name: "cp_nginx"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_nginx"
+          password: "cp_nginx"
+        check_profile: "cp_nginx_profile"
 
-  #     - name: "probe_user"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "probe_user"
-  #         password: "probe_user"
-  #       check_profile: "probe_user_profile"
+      - name: "probe_user"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "probe_user"
+          password: "probe_user"
+        check_profile: "probe_user_profile"
 
-  # - host: "175.0.6.35"
-  #   display_name: "175.0.6.35"
-  #   prompt_host: "PXLAAPS05"
-  #   site: "DC"
-  #   services:
-  #     - name: "cp_fchas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fchas"
-  #         password: "cp_fchas"
-  #       check_profile: "cp_fchas_profile"
+  - host: "175.0.6.35"
+    display_name: "175.0.6.35"
+    prompt_host: "PXLAAPS05"
+    site: "DC"
+    services:
+      - name: "cp_fchas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fchas"
+          password: "cp_fchas"
+        check_profile: "cp_fchas_profile"
 
-  #     - name: "cp_fbias"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fbias"
-  #         password: "cp_fbias"
-  #       check_profile: "cp_fbias_profile"
+      - name: "cp_fbias"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fbias"
+          password: "cp_fbias"
+        check_profile: "cp_fbias_profile"
 
-  #     - name: "cp_bisas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_bisas"
-  #         password: "cp_bisas"
-  #       check_profile: "cp_bisas_profile"
+      - name: "cp_bisas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_bisas"
+          password: "cp_bisas"
+        check_profile: "cp_bisas_profile"
 
-  #     - name: "cp_mopas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_mopas"
-  #         password: "cp_mopas"
-  #       check_profile: "cp_mopas_profile"
+      - name: "cp_mopas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_mopas"
+          password: "cp_mopas"
+        check_profile: "cp_mopas_profile"
 
-  #     - name: "cp_nginx"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_nginx"
-  #         password: "cp_nginx"
-  #       check_profile: "cp_nginx_profile"
+      - name: "cp_nginx"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_nginx"
+          password: "cp_nginx"
+        check_profile: "cp_nginx_profile"
 
-  #     - name: "probe_user"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "probe_user"
-  #         password: "probe_user"
-  #       check_profile: "probe_user_profile"
+      - name: "probe_user"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "probe_user"
+          password: "probe_user"
+        check_profile: "probe_user_profile"
 
-  # - host: "175.8.6.31"
-  #   display_name: "175.8.6.31"
-  #   prompt_host: "DXLAAPS01"
-  #   site: "DR"
-  #   services:
-  #     - name: "cp_ftpas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_ftpas"
-  #         password: "cp_ftpas"
-  #       check_profile: "cp_ftpas_profile"
+  - host: "175.8.6.31"
+    display_name: "175.8.6.31"
+    prompt_host: "DXLAAPS01"
+    site: "DR"
+    services:
+      - name: "cp_ftpas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_ftpas"
+          password: "cp_ftpas"
+        check_profile: "cp_ftpas_profile"
 
-  #     - name: "cp_fcpas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fcpas"
-  #         password: "cp_fcpas"
-  #       check_profile: "cp_fcpas_profile"
+      - name: "cp_fcpas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fcpas"
+          password: "cp_fcpas"
+        check_profile: "cp_fcpas_profile"
 
-  #     - name: "cp_fmpas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fmpas"
-  #         password: "cp_fmpas"
-  #       check_profile: "cp_fmpas_profile"
+      - name: "cp_fmpas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fmpas"
+          password: "cp_fmpas"
+        check_profile: "cp_fmpas_profile"
 
-  #     - name: "cp_fmsas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fmsas"
-  #         password: "cp_fmsas"
-  #       check_profile: "cp_fmsas_profile"
+      - name: "cp_fmsas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fmsas"
+          password: "cp_fmsas"
+        check_profile: "cp_fmsas_profile"
 
-  #     - name: "cp_nginx"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_nginx"
-  #         password: "cp_nginx"
-  #       check_profile: "cp_nginx_profile"
+      - name: "cp_nginx"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_nginx"
+          password: "cp_nginx"
+        check_profile: "cp_nginx_profile"
 
-  #     - name: "probe_user"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "probe_user"
-  #         password: "probe_user"
-  #       check_profile: "probe_user_profile"
+      - name: "probe_user"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "probe_user"
+          password: "probe_user"
+        check_profile: "probe_user_profile"
 
-  # - host: "175.8.6.32"
-  #   display_name: "175.8.6.32"
-  #   prompt_host: "DXLAAPS02"
-  #   site: "DR"
-  #   services:
-  #     - name: "cp_fchas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fchas"
-  #         password: "cp_fchas"
-  #       check_profile: "cp_fchas_profile"
+  - host: "175.8.6.32"
+    display_name: "175.8.6.32"
+    prompt_host: "DXLAAPS02"
+    site: "DR"
+    services:
+      - name: "cp_fchas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fchas"
+          password: "cp_fchas"
+        check_profile: "cp_fchas_profile"
 
-  #     - name: "cp_fbias"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fbias"
-  #         password: "cp_fbias"
-  #       check_profile: "cp_fbias_profile"
+      - name: "cp_fbias"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fbias"
+          password: "cp_fbias"
+        check_profile: "cp_fbias_profile"
 
-  #     - name: "cp_mopas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_mopas"
-  #         password: "cp_mopas"
-  #       check_profile: "cp_mopas_profile"
+      - name: "cp_mopas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_mopas"
+          password: "cp_mopas"
+        check_profile: "cp_mopas_profile"
 
-  #     - name: "cp_nginx"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_nginx"
-  #         password: "cp_nginx"
-  #       check_profile: "cp_nginx_profile"
+      - name: "cp_nginx"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_nginx"
+          password: "cp_nginx"
+        check_profile: "cp_nginx_profile"
 
-  #     - name: "probe_user"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "probe_user"
-  #         password: "probe_user"
-  #       check_profile: "probe_user_profile"
+      - name: "probe_user"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "probe_user"
+          password: "probe_user"
+        check_profile: "probe_user_profile"
 
-  # - host: "175.8.6.33"
-  #   display_name: "175.8.6.33"
-  #   prompt_host: "DXLAAPS03"
-  #   site: "DR"
-  #   services:
-  #     - name: "cp_fcpas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_fcpas"
-  #         password: "cp_fcpas"
-  #       check_profile: "cp_fcpas_profile"
+  - host: "175.8.6.33"
+    display_name: "175.8.6.33"
+    prompt_host: "DXLAAPS03"
+    site: "DR"
+    services:
+      - name: "cp_fcpas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_fcpas"
+          password: "cp_fcpas"
+        check_profile: "cp_fcpas_profile"
 
-  #     - name: "cp_bisas"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "cp_bisas"
-  #         password: "cp_bisas"
-  #       check_profile: "cp_bisas_profile"
+      - name: "cp_bisas"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "cp_bisas"
+          password: "cp_bisas"
+        check_profile: "cp_bisas_profile"
 
-  #     - name: "probe_user"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "probe_user"
-  #         password: "probe_user"
-  #       check_profile: "probe_user_profile"
+      - name: "probe_user"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "probe_user"
+          password: "probe_user"
+        check_profile: "probe_user_profile"
 
-  # - host: "175.0.6.36"
-  #   display_name: "175.0.6.36"
-  #   prompt_host: "PXLADBS01"
-  #   site: "DC"
-  #   services:
-  #     - name: "probe_user"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "probe_user"
-  #         password: "probe_user"
-  #       check_profile: "probe_user_profile"
+  - host: "175.0.6.36"
+    display_name: "175.0.6.36"
+    prompt_host: "PXLADBS01"
+    site: "DC"
+    services:
+      - name: "probe_user"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "probe_user"
+          password: "probe_user"
+        check_profile: "probe_user_profile"
 
-  # - host: "175.0.6.37"
-  #   display_name: "175.0.6.37"
-  #   prompt_host: "PXLADBS02"
-  #   site: "DC"
-  #   services:
-  #     - name: "probe_user"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "probe_user"
-  #         password: "probe_user"
-  #       check_profile: "probe_user_profile"
+  - host: "175.0.6.37"
+    display_name: "175.0.6.37"
+    prompt_host: "PXLADBS02"
+    site: "DC"
+    services:
+      - name: "probe_user"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "probe_user"
+          password: "probe_user"
+        check_profile: "probe_user_profile"
 
-  # - host: "175.8.6.34"
-  #   display_name: "175.8.6.34"
-  #   prompt_host: "DXLADBS01"
-  #   site: "DR"
-  #   services:
-  #     - name: "probe_user"
-  #       connection:
-  #         protocol: "ssh"
-  #         ssh_port: 22
-  #         username: "probe_user"
-  #         password: "probe_user"
-  #       check_profile: "probe_user_profile"
+  - host: "175.8.6.34"
+    display_name: "175.8.6.34"
+    prompt_host: "DXLADBS01"
+    site: "DR"
+    services:
+      - name: "probe_user"
+        connection:
+          protocol: "ssh"
+          ssh_port: 22
+          username: "probe_user"
+          password: "probe_user"
+        check_profile: "probe_user_profile"
+
+web_targets:
+  - name: "website_main_domain"
+    site: "WEB"
+    url: "https://www.lapnet.com.la/#/r/Lw"
+    login_required: false
+    success_wait_selector: "body"
+    timeout_ms: 4000
+    pre_screenshot_wait_ms: 3000
+    full_page: false
+
+  - name: "hfs"
+    site: "WEB"
+    url: "http://175.3.1.8/"
+    login_required: false
+    success_wait_selector: "body"
+    timeout_ms: 4000
+    pre_screenshot_wait_ms: 3000
+    full_page: false
+
+  - name: "lmps_simulator"
+    site: "WEB"
+    url: "http://175.3.1.8:85/ui/Inquiry"
+    login_required: false
+    success_wait_selector: "body"
+    timeout_ms: 4000
+    pre_screenshot_wait_ms: 3000
+    full_page: false
+
+  - name: "lmps_transaction_report"
+    site: "WEB"
+    url: "http://175.11.0.122:8088/#/dashboard"
+    login_required: true
+    username: "admin@lapnet.com.la"
+    password: "admin123"
+    success_wait_selector: "body"
+    timeout_ms: 4000
+    pre_screenshot_wait_ms: 3000
+    full_page: false
+    reuse_storage_state: true
+
+  - name: "merchant_portal"
+    site: "WEB"
+    url: "http://175.11.0.122:8085/login?expired=true"
+    login_required: false
+    success_wait_selector: "body"
+    timeout_ms: 4000
+    pre_screenshot_wait_ms: 3000
+    full_page: false
+
+  - name: "monitor"
+    site: "WEB"
+    url: "http://175.2.0.29:8011/"
+    login_required: false
+    success_wait_selector: "body"
+    timeout_ms: 4000
+    pre_screenshot_wait_ms: 3000
+    full_page: false
+
+  - name: "drs"
+    site: "WEB"
+    url: "http://175.2.0.29:3002/#/login"
+    login_required: false
+    success_wait_selector: "body"
+    timeout_ms: 4000
+    pre_screenshot_wait_ms: 3000
+    full_page: false
+
+  - name: "metabase"
+    site: "WEB"
+    url: "http://175.2.0.29:3000/auth/login?redirect=%2F"
+    login_required: false
+    success_wait_selector: "body"
+    timeout_ms: 4000
+    pre_screenshot_wait_ms: 3000
+    full_page: false
+
+  - name: "lmps_service_status"
+    site: "WEB"
+    url: "http://175.11.0.122:8088/#/LMPSPortStatusChart"
+    login_required: true
+    username: "admin@lapnet.com.la"
+    password: "admin123"
+    success_wait_selector: "body"
+    timeout_ms: 4000
+    pre_screenshot_wait_ms: 3000
+    full_page: false
+    reuse_storage_state: true
+
+  - name: "elasticsearch"
+    site: "WEB"
+    url: "http://175.11.0.103:8080/"
+    login_required: true
+    username: "admin"
+    password: "lmps@dmin"
+    success_wait_selector: "body"
+    timeout_ms: 4000
+    pre_screenshot_wait_ms: 3000
+    full_page: false
+    reuse_storage_state: true
